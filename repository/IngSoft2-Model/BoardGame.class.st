@@ -181,11 +181,13 @@ BoardGame >> playTurnFor: aSpaceship [
 	isOver
 		ifFalse: [ 
 			self validatePlayingSpaceshipPosition.
-			self validateSpaceshipTurnFor: aSpaceship.
-			self relocatesSpaceshipPositionTo: self totalAmount.
-			self validateWinner: playingSpaceshipPosition.
+			(self validateSpaceshipTurnFor: aSpaceship)
+				ifTrue: [ 
+					self validatePlayingSpaceshipPosition.
+					self relocatesSpaceshipPositionTo: self totalAmount.
+					self validateWinner: playingSpaceshipPosition.
 
-			turn := turn \\ spaceships size + 1 ]
+					turn := turn \\ spaceships size + 1 ]]
 		ifTrue: [ self validateKeepPlaying ]
 ]
 
@@ -344,8 +346,19 @@ BoardGame >> validateSpaceshipExists: aSpaceship [
 { #category : #validation }
 BoardGame >> validateSpaceshipTurnFor: aSpaceship [
 
+	playingSpaceshipPosition ableToPlay ifFalse: [ 
+		turn := turn \\ spaceships size + 1.
+		playingSpaceshipPosition enableToPlay. ].
 	(spaceships at: turn) = aSpaceship
-		ifFalse: [ Error signal: 'Its not your turn' ].
+		ifFalse: [ 
+			playingSpaceshipPosition := spaceshipPositions detect: [ 
+				                            :spaceshipPosition | 
+				                            spaceshipPosition spaceships
+				                            == aSpaceship ].
+			self moves: playingSpaceshipPosition to: -2.
+			playingSpaceshipPosition disableToPlay.
+			^ false ]
+		ifTrue: [ ^ true ]
 ]
 
 { #category : #validation }
