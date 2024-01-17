@@ -45,6 +45,17 @@ BoardGame class >> validateCanExistWith: aSpaceshipCollection andWith: anAmountO
 		Error signal: 'Cannot create board with repeated spaceships' ]
 ]
 
+{ #category : #actions }
+BoardGame >> aCheaterGoesBackwards: aSpaceship [
+
+	playingSpaceshipPosition := spaceshipPositions detect: [ 
+		                            :spaceshipPosition | 
+		                            spaceshipPosition spaceships
+		                            == aSpaceship ].
+	self moves: playingSpaceshipPosition to: -2.
+	playingSpaceshipPosition disableToPlay
+]
+
 { #category : #effects }
 BoardGame >> applyAtomicBombEffect [
 
@@ -232,6 +243,12 @@ BoardGame >> repeatCardTo: aSpaceship [
 ]
 
 { #category : #action }
+BoardGame >> skipTurn [
+	turn := turn \\ spaceships size + 1.
+	playingSpaceshipPosition enableToPlay.
+]
+
+{ #category : #action }
 BoardGame >> spaceshipPosition: aName [
 
 	^ (spaceshipPositions detect: [ :spaceshipPosition | 
@@ -347,16 +364,10 @@ BoardGame >> validateSpaceshipExists: aSpaceship [
 BoardGame >> validateSpaceshipTurnFor: aSpaceship [
 
 	playingSpaceshipPosition ableToPlay ifFalse: [ 
-		turn := turn \\ spaceships size + 1.
-		playingSpaceshipPosition enableToPlay. ].
+		self skipTurn].
 	(spaceships at: turn) = aSpaceship
 		ifFalse: [ 
-			playingSpaceshipPosition := spaceshipPositions detect: [ 
-				                            :spaceshipPosition | 
-				                            spaceshipPosition spaceships
-				                            == aSpaceship ].
-			self moves: playingSpaceshipPosition to: -2.
-			playingSpaceshipPosition disableToPlay.
+			self aCheaterGoesBackwards: aSpaceship.
 			^ false ]
 		ifTrue: [ ^ true ]
 ]
