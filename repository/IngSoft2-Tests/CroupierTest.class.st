@@ -237,7 +237,7 @@ CroupierTest >> test06WhenSpaceshipTriesToPlayPermanentCardAndItsNotHisTurnThenC
 		              on: aBoard
 		              with: 3
 		              managedBy: aCroupier.
-
+		
 	self
 		should: [ aBoardGame throw: aSpeedCard from: 'Cami' to: 'Cami' ]
 		raise: Error
