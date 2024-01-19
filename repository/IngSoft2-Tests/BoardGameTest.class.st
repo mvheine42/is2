@@ -182,12 +182,13 @@ BoardGameTest >> test06WhenTwoSpaceshipsPlaysThenSpaceshipPositions [
 ]
 
 { #category : #tests }
-BoardGameTest >> test07WhenItsNotASpaceshipsTruenThenCannotPlay [
+BoardGameTest >> test07WhenASpaceshipsTriesToPlayButNotItsTurnThenSpaceshipGoesBackwardsAndLosesNextTurn [
 
 	| spaceships aBoard aBoardGame |
 	spaceships := OrderedCollection new.
 	spaceships add: 'Vicky'.
 	spaceships add: 'Cami'.
+	spaceships add: 'Delfi'.
 	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
 	aBoardGame := BoardGame
 		              playedBy: spaceships
@@ -195,10 +196,39 @@ BoardGameTest >> test07WhenItsNotASpaceshipsTruenThenCannotPlay [
 		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 2 managedBy: aCroupier.
-	self
-		should: [ aBoardGame playTurnFor: 'Cami' ]
-		raise: Error
-		withMessage: 'Its not your turn'
+		
+	aBoardGame playTurnFor: 'Vicky'.
+	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 2.
+	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1.
+	
+	aBoardGame playTurnFor: 'Cami'.
+	self assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber equals: 3.
+	self assert: (aBoardGame spaceshipPosition: 'Cami') round equals: 1.
+	
+	aBoardGame playTurnFor: 'Delfi'.
+	self assert: (aBoardGame spaceshipPosition: 'Delfi') cellNumber equals: 4.
+	self assert: (aBoardGame spaceshipPosition: 'Delfi') round equals: 1.
+	
+	aBoardGame playTurnFor: 'Cami'. "aca se deberia ver que cami se atrasó dos casilleros por querer tirar de vuelta."
+	self assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber equals: 1.
+	self assert: (aBoardGame spaceshipPosition: 'Cami') round equals: 1.
+	
+	aBoardGame playTurnFor: 'Vicky'.
+	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 3.
+	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1.
+	
+	aBoardGame playTurnFor: 'Delfi'. "acá me debería dejar de vuelta jugar a mí porque cami perdió el turno"
+	self assert: (aBoardGame spaceshipPosition: 'Delfi') cellNumber equals: 6.
+	self assert: (aBoardGame spaceshipPosition: 'Delfi') round equals: 1.
+	
+	aBoardGame playTurnFor: 'Vicky'.
+	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 6.
+	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1.
+	
+	aBoardGame playTurnFor: 'Cami'. 
+	self assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber equals: 2.
+	self assert: (aBoardGame spaceshipPosition: 'Cami') round equals: 1.
+	
 ]
 
 { #category : #tests }

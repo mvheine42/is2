@@ -45,6 +45,17 @@ BoardGame class >> validateCanExistWith: aSpaceshipCollection andWith: anAmountO
 		Error signal: 'Cannot create board with repeated spaceships' ]
 ]
 
+{ #category : #actions }
+BoardGame >> aCheaterGoesBackwards: aSpaceship [
+
+	playingSpaceshipPosition := spaceshipPositions detect: [ 
+		                            :spaceshipPosition | 
+		                            spaceshipPosition spaceships
+		                            == aSpaceship ].
+	self moves: playingSpaceshipPosition to: -2.
+	playingSpaceshipPosition disableToPlay
+]
+
 { #category : #effects }
 BoardGame >> applyAtomicBombEffect [
 
@@ -181,11 +192,13 @@ BoardGame >> playTurnFor: aSpaceship [
 	isOver
 		ifFalse: [ 
 			self validatePlayingSpaceshipPosition.
-			self validateSpaceshipTurnFor: aSpaceship.
-			self relocatesSpaceshipPositionTo: self totalAmount.
-			self validateWinner: playingSpaceshipPosition.
+			(self validateSpaceshipTurnFor: aSpaceship)
+				ifTrue: [ 
+					self validatePlayingSpaceshipPosition.
+					self relocatesSpaceshipPositionTo: self totalAmount.
+					self validateWinner: playingSpaceshipPosition.
 
-			turn := turn \\ spaceships size + 1 ]
+					turn := turn \\ spaceships size + 1 ]]
 		ifTrue: [ self validateKeepPlaying ]
 ]
 
@@ -227,6 +240,12 @@ BoardGame >> repeatCardTo: aSpaceship [
 		                            == aSpaceship ].
 
 	lastCellEffect implementOn: self
+]
+
+{ #category : #action }
+BoardGame >> skipTurn [
+	turn := turn \\ spaceships size + 1.
+	playingSpaceshipPosition enableToPlay.
 ]
 
 { #category : #action }
@@ -344,8 +363,13 @@ BoardGame >> validateSpaceshipExists: aSpaceship [
 { #category : #validation }
 BoardGame >> validateSpaceshipTurnFor: aSpaceship [
 
+	playingSpaceshipPosition ableToPlay ifFalse: [ 
+		self skipTurn].
 	(spaceships at: turn) = aSpaceship
-		ifFalse: [ Error signal: 'Its not your turn' ].
+		ifFalse: [ 
+			self aCheaterGoesBackwards: aSpaceship.
+			^ false ]
+		ifTrue: [ ^ true ]
 ]
 
 { #category : #validation }
