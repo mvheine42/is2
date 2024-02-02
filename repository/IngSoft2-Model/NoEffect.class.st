@@ -8,3 +8,8 @@ Class {
 NoEffect >> implementOn: aBoardGame [
 	
 ]
+
+{ #category : #reverse }
+NoEffect >> reverseEffectOn: aCell [ 
+	.
+]

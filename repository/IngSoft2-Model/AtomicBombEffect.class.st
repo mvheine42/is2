@@ -9,3 +9,8 @@ AtomicBombEffect >> implementOn: aBoardGame [
 
 	aBoardGame applyAtomicBombEffect
 ]
+
+{ #category : #reverse }
+AtomicBombEffect >> reverseEffectOn: aCell [ 
+	.
+]

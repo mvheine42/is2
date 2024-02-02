@@ -24,3 +24,8 @@ MoonWalkEffect >> initializeWith: aNumber [
 
 	number := aNumber
 ]
+
+{ #category : #reverse }
+MoonWalkEffect >> reverseEffectOn: aCell [ 
+	number := number negated.
+]

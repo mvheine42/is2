@@ -26,3 +26,8 @@ Parsec >> parsecs [
 Parsec >> quantity [
 	^quantity .
 ]
+
+{ #category : #reverse }
+Parsec >> reverseValue [
+	quantity := quantity negated.
+]

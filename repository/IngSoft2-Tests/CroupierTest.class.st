@@ -9,7 +9,8 @@ Class {
 		'anAccelerationCard',
 		'aCancellationCard',
 		'aRepeatCard',
-		'aRedoCard'
+		'aRedoCard',
+		'aReversalCard'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -35,7 +36,8 @@ CroupierTest >> setUp [
 	anAccelerationCard := AccelerationCard new.
 	aCancellationCard := CancellationCard new.
 	aRepeatCard := RepeatCard new.
-	aRedoCard := RedoCard new
+	aRedoCard := RedoCard new.
+	aReversalCard := ReversalCard new.
 ]
 
 { #category : #asserting }
@@ -237,11 +239,41 @@ CroupierTest >> test06WhenSpaceshipTriesToPlayPermanentCardAndItsNotHisTurnThenC
 		              on: aBoard
 		              with: 3
 		              managedBy: aCroupier.
-		
+	aBoardGame playTurnFor: 'Vicky'.
+
 	self
-		should: [ aBoardGame throw: aSpeedCard from: 'Cami' to: 'Cami' ]
-		raise: Error
-		withMessage: 'Its not your turn'
+		assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber
+		equals: 2.
+
+	aBoardGame playTurnFor: 'Cami'.
+
+	self
+		assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber
+		equals: 3.
+
+	aBoardGame throw: aSpeedCard from: 'Cami' to: 'Cami'.
+
+	self
+		assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber
+		equals: 1.
+
+	aBoardGame playTurnFor: 'Vicky'.
+
+	self
+		assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber
+		equals: 5.
+
+	aBoardGame playTurnFor: 'Vicky'.
+	
+	self
+		assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber
+		equals: 6.
+
+	aBoardGame playTurnFor: 'Cami'.
+
+	self
+		assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber
+		equals: 3.
 ]
 
 { #category : #tests }
@@ -727,7 +759,7 @@ CroupierTest >> test19WhenASpaceshipThrowsRepeatCardAndLastCellEffectSpeedUpThen
 	aBoardGame throw: aRepeatCard from: 'Delfi' to: 'Delfi'.
 	
 	self assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber equals: 1.
-	self assert: (aBoardGame spaceshipPosition: 'Delfi') cellNumber equals: 5.
+	self assert: (aBoardGame spaceshipPosition: 'Delfi') cellNumber equals: 1.
 	
 
 
@@ -1277,4 +1309,70 @@ CroupierTest >> test34WhenASpaceshipThrowsRepeatCardNotChoosingACardThenCanNotTh
 	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Vicky'.	
 	 
 	self should: [ aBoardGame throw: aRepeatCard from: 'Vicky'choosing: aSpeedCard.  ] raise: Error  withMessage: 'To play card, choose a player' .	
+]
+
+{ #category : #asserting }
+CroupierTest >> test35WhenASpaceshipThrowsReversalCardOnSpeedUpCellThenSpaceshipGoesBackwardsWhenLandingOnCell [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	aDeckOfCards := DeckOfCards with: (OrderedCollection with: aReversalCard).
+	aCroupier := Croupier handling: aDeckOfCards. 
+	
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling: (OrderedCollection with: (LoadedDie of: #( 9 9 3 )))
+		              on: aBoard
+		              with: 2 managedBy: aCroupier.
+		
+	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: 10.
+
+	aBoardGame playTurnFor: 'Vicky'.
+	aBoardGame playTurnFor: 'Cami'.
+	
+	self
+		assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber
+		equals: 6.
+
+	self
+		assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber
+		equals: 6.
+]
+
+{ #category : #asserting }
+CroupierTest >> test36WhenASpaceshipThrowsReversalCardOnNoEffectCellAndOnSpeedUpCellThenOneReversesAndTheOtherDoesNot [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	aDeckOfCards := DeckOfCards with: (OrderedCollection with: aReversalCard).
+	aCroupier := Croupier handling: aDeckOfCards. 
+	
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling: (OrderedCollection with: (LoadedDie of: #( 3 9 3 )))
+		              on: aBoard
+		              with: 2 managedBy: aCroupier.
+		
+	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: 4.
+
+	aBoardGame playTurnFor: 'Vicky'.
+	
+	aBoardGame throw: aReversalCard from: 'Cami' affectingOnCell: 10.
+	aBoardGame playTurnFor: 'Cami'.
+	
+	self
+		assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber
+		equals: 4.
+
+	self
+		assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber
+		equals: 6.
 ]
