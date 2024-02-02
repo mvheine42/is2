@@ -13,8 +13,3 @@ DrawCardEffect >> implementOn: aBoardGame [
 DrawCardEffect >> reverseEffectOn: aCell [ 
 	.
 ]
-
-{ #category : #reverse }
-DrawCardEffect >> reverseIn: aBoard on: aCell [ 
-	.
-]
