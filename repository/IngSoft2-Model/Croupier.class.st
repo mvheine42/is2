@@ -118,11 +118,8 @@ Croupier >> recordPermanent: aCardPlayers [
 Croupier >> take: aCard from: aSpaceship on: aBoardGame [
 	
 	| aPlayerCards |
-	"Verifico que pueda jugar en su turno (si es permanente)"
 	aCard canBePlayedIn: aBoardGame for: aSpaceship.
-	"Devuelvo el playerCards que coincide con esa spaceship"
 	aPlayerCards:= self playerCardOf: aSpaceship.
-	"Remover la carta de esa spaceship"
 	aPlayerCards removeCard: aCard id.
 	
 ]

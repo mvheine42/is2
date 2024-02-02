@@ -45,17 +45,6 @@ BoardGame class >> validateCanExistWith: aSpaceshipCollection andWith: anAmountO
 		Error signal: 'Cannot create board with repeated spaceships' ]
 ]
 
-{ #category : #actions }
-BoardGame >> aCheaterGoesBackwards: aSpaceship [
-
-	playingSpaceshipPosition := spaceshipPositions detect: [ 
-		                            :spaceshipPosition | 
-		                            spaceshipPosition spaceships
-		                            == aSpaceship ].
-	self moves: playingSpaceshipPosition to: -2.
-	playingSpaceshipPosition disableToPlay
-]
-
 { #category : #effects }
 BoardGame >> applyAtomicBombEffect [
 
@@ -118,6 +107,16 @@ BoardGame >> initializePlayedBy: manySpaceships rolling: manyDice on: aBoard win
 ]
 
 { #category : #action }
+BoardGame >> moveCheaterBackwards: aSpaceship [
+	playingSpaceshipPosition := spaceshipPositions detect: [ 
+		                            :spaceshipPosition | 
+		                            spaceshipPosition spaceships
+		                            == aSpaceship ].
+	self moves: playingSpaceshipPosition to: -2.
+	playingSpaceshipPosition disableToPlay.
+]
+
+{ #category : #action }
 BoardGame >> moves: aSpaceshipPosition to: amountOfCellsToMove [
 
 	| moveAmount aSpaceshipPositionNew cellNumberNew roundNew |
@@ -176,7 +175,7 @@ BoardGame >> newRoundPositionWhen: originalRound with: moveAmount [
 		cellNumber := cellNumber - board anAmountOfCells.
 		round := round + 1 ].
 
-	[ cellNumber < 0 ] whileTrue: [ 
+	[ cellNumber <= 0 ] whileTrue: [ 
 		cellNumber := cellNumber + board anAmountOfCells.
 		round := round - 1 ].
 
@@ -192,6 +191,8 @@ BoardGame >> playTurnFor: aSpaceship [
 	isOver
 		ifFalse: [ 
 			self validatePlayingSpaceshipPosition.
+			playingSpaceshipPosition ableToPlay ifFalse: 
+			[ self skipTurn ].
 			(self validateSpaceshipTurnFor: aSpaceship)
 				ifTrue: [ 
 					self validatePlayingSpaceshipPosition.
@@ -199,7 +200,7 @@ BoardGame >> playTurnFor: aSpaceship [
 					self validateWinner: playingSpaceshipPosition.
 
 					turn := turn \\ spaceships size + 1 ]]
-		ifTrue: [ self validateKeepPlaying ]
+		ifTrue: [ self validateKeepPlaying ].
 ]
 
 { #category : #action }
@@ -242,6 +243,16 @@ BoardGame >> repeatCardTo: aSpaceship [
 	lastCellEffect implementOn: self
 ]
 
+{ #category : #reverse }
+BoardGame >> revertReversalEffect: aBoard of: aReversalCard [ 
+	|aCellToRevert|
+	aCellToRevert := aBoard cellsEffect detect: [ 
+		                            :aCell | 
+		                            (aCell quantity)
+		                            == aReversalCard cellNumber ].
+	aCellToRevert applyReverseEffect.
+]
+
 { #category : #action }
 BoardGame >> skipTurn [
 	turn := turn \\ spaceships size + 1.
@@ -278,10 +289,24 @@ BoardGame >> throw: aCard from: aSpaceship [
 ]
 
 { #category : #cards }
+BoardGame >> throw: aCard from: aSpaceship affectingOnCell: aCellNumber [
+	| aCardPlayers aCellToReverse |
+	croupier take: aCard from: aSpaceship on: self.
+	aCardPlayers := CardPlayers of: aCard with: spaceships.
+	(self validateRepeatOf: aCardPlayers) ifFalse: [ 
+		croupier playOnAll: aCardPlayers ].
+	aCellToReverse := board cellsEffect detect: [ :cell | 
+		               cell quantity = aCellNumber ].
+	aCard keepACellToReverse: aCellToReverse.
+	aCellToReverse applyReverseEffect.
+]
+
+{ #category : #cards }
 BoardGame >> throw: aCard from: aSpaceship choosing: anotherCard [
 	
 	croupier take: aCard from: aSpaceship on: self.
-	croupier play: aCard forSelected: anotherCard
+	croupier play: aCard forSelected: anotherCard.
+	anotherCard name = 'reversal' ifTrue: [ self revertReversalEffect: board of: anotherCard].
 
 ]
 
@@ -290,12 +315,15 @@ BoardGame >> throw: aCard from: aSpaceship to: anotherSpaceship [
 
 	| aCardPlayers |
 	self validateSpaceshipExists: anotherSpaceship.
-	croupier take: aCard from: aSpaceship on: self.
-	aCardPlayers := CardPlayers
-		                of: aCard
-		                with: (OrderedCollection with: anotherSpaceship).
-	(self validateRepeatOf: aCardPlayers) ifFalse: [ 
-		croupier play: aCardPlayers ]
+	(self validatePermanentPlayFor: aSpaceship)
+		ifTrue: [ 
+			aCardPlayers := CardPlayers
+				                of: aCard
+				                with: (OrderedCollection with: anotherSpaceship).
+			croupier take: aCard from: aSpaceship on: self.
+			(self validateRepeatOf: aCardPlayers) ifFalse: [ 
+				croupier play: aCardPlayers ] ]
+		ifFalse: [ croupier take: aCard from: aSpaceship on: self].
 ]
 
 { #category : #action }
@@ -322,8 +350,11 @@ BoardGame >> validateKeepPlaying [
 { #category : #validation }
 BoardGame >> validatePermanentPlayFor: aSpaceship [
 
-	(spaceships at: turn) = aSpaceship ifFalse: [ 
-		Error signal: 'Its not your turn' ]
+	(spaceships at: turn) = aSpaceship
+		ifFalse: [ 
+			self moveCheaterBackwards: aSpaceship.
+			^ false ]
+		ifTrue: [ ^ true ]
 ]
 
 { #category : #action }
@@ -363,11 +394,9 @@ BoardGame >> validateSpaceshipExists: aSpaceship [
 { #category : #validation }
 BoardGame >> validateSpaceshipTurnFor: aSpaceship [
 
-	playingSpaceshipPosition ableToPlay ifFalse: [ 
-		self skipTurn].
 	(spaceships at: turn) = aSpaceship
 		ifFalse: [ 
-			self aCheaterGoesBackwards: aSpaceship.
+			self moveCheaterBackwards: aSpaceship.
 			^ false ]
 		ifTrue: [ ^ true ]
 ]

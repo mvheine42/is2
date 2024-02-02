@@ -8,3 +8,8 @@ Class {
 DrawCardEffect >> implementOn: aBoardGame [ 
 	aBoardGame dealACardEffect.
 ]
+
+{ #category : #reverse }
+DrawCardEffect >> reverseEffectOn: aCell [ 
+	.
+]

@@ -30,3 +30,10 @@ HyperJumpEffect >> initializeWith: aSequenceOfJumps [
 	jumps := aSequenceOfJumps.
 	jumpsIndex := 1
 ]
+
+{ #category : #reverse }
+HyperJumpEffect >> reverseEffectOn: aCell [ 
+	|value|
+	value := jumps at: jumpsIndex.
+	value reverseValue.
+]

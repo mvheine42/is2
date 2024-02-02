@@ -217,7 +217,7 @@ BoardGameTest >> test07WhenASpaceshipsTriesToPlayButNotItsTurnThenSpaceshipGoesB
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 3.
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1.
 	
-	aBoardGame playTurnFor: 'Delfi'. "acá me debería dejar de vuelta jugar a mí porque cami perdió el turno"
+	aBoardGame playTurnFor: 'Delfi'.
 	self assert: (aBoardGame spaceshipPosition: 'Delfi') cellNumber equals: 6.
 	self assert: (aBoardGame spaceshipPosition: 'Delfi') round equals: 1.
 	
