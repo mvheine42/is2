@@ -37,10 +37,3 @@ HyperJumpEffect >> reverseEffectOn: aCell [
 	value := jumps at: jumpsIndex.
 	value reverseValue.
 ]
-
-{ #category : #reverse }
-HyperJumpEffect >> reverseIn: aBoard on: aCell [ 
-	|value|
-	value := jumps at: jumpsIndex.
-	value reverseValue.
-]
