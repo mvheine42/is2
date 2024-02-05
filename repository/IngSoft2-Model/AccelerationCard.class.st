@@ -34,6 +34,11 @@ AccelerationCard >> name [
 ]
 
 { #category : #action }
+AccelerationCard >> playOn: aCroupier affectingAll: aCardPlayers [ 
+	Error signal: 'You cannot choose a cell number for acceleration card.'.
+]
+
+{ #category : #action }
 AccelerationCard >> playOn: aCroupier to: aCardPlayers [ 
 	Error signal: 'You cannot choose a player for acceleration card.'
 ]

@@ -161,7 +161,7 @@ BoardGameTest >> test05WhenAllSpaceshipsPositionsThenAnOrderedCollection [
 ]
 
 { #category : #tests }
-BoardGameTest >> test06WhenTwoSpaceshipsPlaysThenSpaceshipPositions [
+BoardGameTest >> test06WhenTwoSpaceshipsPlayThenSpaceshipPositions [
 
 	| spaceships aBoard aBoardGame |
 	spaceships := OrderedCollection new.
@@ -209,7 +209,7 @@ BoardGameTest >> test07WhenASpaceshipsTriesToPlayButNotItsTurnThenSpaceshipGoesB
 	self assert: (aBoardGame spaceshipPosition: 'Delfi') cellNumber equals: 4.
 	self assert: (aBoardGame spaceshipPosition: 'Delfi') round equals: 1.
 	
-	aBoardGame playTurnFor: 'Cami'. "aca se deberia ver que cami se atrasó dos casilleros por querer tirar de vuelta."
+	aBoardGame playTurnFor: 'Cami'.
 	self assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber equals: 1.
 	self assert: (aBoardGame spaceshipPosition: 'Cami') round equals: 1.
 	
@@ -228,6 +228,10 @@ BoardGameTest >> test07WhenASpaceshipsTriesToPlayButNotItsTurnThenSpaceshipGoesB
 	aBoardGame playTurnFor: 'Cami'. 
 	self assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber equals: 2.
 	self assert: (aBoardGame spaceshipPosition: 'Cami') round equals: 1.
+	
+	aBoardGame playTurnFor: 'Delfi'.
+	self assert: (aBoardGame spaceshipPosition: 'Delfi') cellNumber equals: 8.
+	self assert: (aBoardGame spaceshipPosition: 'Delfi') round equals: 1.
 	
 ]
 

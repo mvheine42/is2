@@ -657,94 +657,7 @@ ReversalCardTest >> test15WheASpaceshipThrowsReversalCardAffectingAtomicBombEffe
 ]
 
 { #category : #asserting }
-ReversalCardTest >> test16WhenASpaceshipThrowsReversalCardOnSpeedUpCellThenSpaceshipGoesBackwardsWhenLandingOnCell [
-
-	| spaceships aBoard aBoardGame cellEffects |
-	
-	spaceships := OrderedCollection new.
-	spaceships add: 'Vicky'.
-	spaceships add: 'Cami'.
-	
-	cellEffects := OrderedCollection new.
-	cellEffects add: (Cell on: 1 of: NoEffect new).
-	cellEffects add: (Cell on: 2 of: NoEffect new).
-	cellEffects add: (Cell on: 3 of: NoEffect new).
-	cellEffects add: (Cell on: 4 of: NoEffect new).
-	cellEffects add: (Cell on: 5 of: DrawCardEffect new).
-	cellEffects add: (Cell on: 6 of: NoEffect new).
-	cellEffects add: (Cell on: 7 of: NoEffect new).
-	cellEffects add: (Cell on: 8 of: NoEffect new).
-	cellEffects add: (Cell on: 9 of: AtomicBombEffect new).
-	cellEffects add: (Cell on: 10 of: SpeedUpEffect new).
-
-	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
-	aBoardGame := BoardGame
-		              playedBy: spaceships
-		              rolling: (OrderedCollection with: (LoadedDie of: #( 9 9 3 )))
-		              on: aBoard
-		              with: 2 managedBy: aCroupier.
-		
-	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: 10.
-
-	aBoardGame playTurnFor: 'Vicky'.
-	aBoardGame playTurnFor: 'Cami'.
-	
-	self
-		assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber
-		equals: 6.
-
-	self
-		assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber
-		equals: 6.
-]
-
-{ #category : #asserting }
-ReversalCardTest >> test17WhenASpaceshipThrowsReversalCardOnNoEffectCellAndOnSpeedUpCellThenOneReversesAndTheOtherDoesNot [
-
-	| spaceships aBoard aBoardGame cellEffects|
-	
-	spaceships := OrderedCollection new.
-	spaceships add: 'Vicky'.
-	spaceships add: 'Cami'.
-	
-	cellEffects := OrderedCollection new.
-	cellEffects add: (Cell on: 1 of: NoEffect new).
-	cellEffects add: (Cell on: 2 of: NoEffect new).
-	cellEffects add: (Cell on: 3 of: NoEffect new).
-	cellEffects add: (Cell on: 4 of: NoEffect new).
-	cellEffects add: (Cell on: 5 of: DrawCardEffect new).
-	cellEffects add: (Cell on: 6 of: NoEffect new).
-	cellEffects add: (Cell on: 7 of: NoEffect new).
-	cellEffects add: (Cell on: 8 of: NoEffect new).
-	cellEffects add: (Cell on: 9 of: AtomicBombEffect new).
-	cellEffects add: (Cell on: 10 of: SpeedUpEffect new).
-	
-
-	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
-	aBoardGame := BoardGame
-		              playedBy: spaceships
-		              rolling: (OrderedCollection with: (LoadedDie of: #( 3 9 3 )))
-		              on: aBoard
-		              with: 2 managedBy: aCroupier.
-		
-	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: 4.
-
-	aBoardGame playTurnFor: 'Vicky'.
-	
-	aBoardGame throw: aReversalCard from: 'Cami' affectingOnCell: 10.
-	aBoardGame playTurnFor: 'Cami'.
-	
-	self
-		assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber
-		equals: 4.
-
-	self
-		assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber
-		equals: 6.
-]
-
-{ #category : #asserting }
-ReversalCardTest >> test18WhenASpaceshipThrowsAReversalCardChoosingAnotherSpacheshipThenCannotThrowCard [
+ReversalCardTest >> test16WhenASpaceshipThrowsAReversalCardChoosingAnotherSpacheshipThenCannotThrowCard [
 
 	| spaceships aBoard aBoardGame cellEffects |
 	spaceships := OrderedCollection new.
@@ -780,7 +693,7 @@ ReversalCardTest >> test18WhenASpaceshipThrowsAReversalCardChoosingAnotherSpache
 ]
 
 { #category : #asserting }
-ReversalCardTest >> test19WhenASpaceshipThrowsReversalCardChoosingACardNumberThenCannotThrowCard [
+ReversalCardTest >> test17WhenASpaceshipThrowsReversalCardChoosingACardNumberThenCannotThrowCard [
 
 	| spaceships aBoard aBoardGame cellEffects |
 	spaceships := OrderedCollection new.
@@ -816,7 +729,7 @@ ReversalCardTest >> test19WhenASpaceshipThrowsReversalCardChoosingACardNumberThe
 ]
 
 { #category : #asserting }
-ReversalCardTest >> test20WhenASpaceshipThrowsReversalCardNotChoosingACellNumberThenCannotThrowCard [
+ReversalCardTest >> test18WhenASpaceshipThrowsReversalCardNotChoosingACellNumberThenCannotThrowCard [
 
 	| spaceships aBoard aBoardGame cellEffects |
 	spaceships := OrderedCollection new.

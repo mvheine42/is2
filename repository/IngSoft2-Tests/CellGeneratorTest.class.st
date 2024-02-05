@@ -8,7 +8,7 @@ Class {
 CellGeneratorTest >> test01WhenACellGeneratorGeneratesCellsThenABoardIsCreatedWithCells [
 
 	| aCellGenerator aBoard |
-	aCellGenerator := CellGenerator setWithCellEffects: 100.
+	aCellGenerator := CellNumberGenerator setWithCellEffects: 100.
 	aBoard := Board
 		          of: aCellGenerator cellsEffect
 		          withLenght: (Parsec of: 15).

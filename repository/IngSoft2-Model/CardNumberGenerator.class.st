@@ -1,5 +1,5 @@
 Class {
-	#name : #CardGenerator,
+	#name : #CardNumberGenerator,
 	#superclass : #Object,
 	#instVars : [
 		'amountOfCards',
@@ -16,28 +16,28 @@ Class {
 }
 
 { #category : #initialize }
-CardGenerator class >> setWithCards: aNumber [ 
+CardNumberGenerator class >> setWithCards: aNumber [ 
 	^(self new) initializeWithCards: aNumber.
 ]
 
 { #category : #'instance variable' }
-CardGenerator >> accelerations [
+CardNumberGenerator >> accelerations [
 	^ accelerations
 ]
 
 { #category : #'instance variable' }
-CardGenerator >> cancellations [
+CardNumberGenerator >> cancellations [
 	^ cancellations
 ]
 
 { #category : #'instance creation' }
-CardGenerator >> cards [
+CardNumberGenerator >> cards [
 
 	^ cards
 ]
 
 { #category : #'instance creation' }
-CardGenerator >> initializeDeck [
+CardNumberGenerator >> initializeDeck [
 	1 to: amountOfCards do: [ :index | 
 		| aNumber |
 		aNumber := 70 atRandom.
@@ -65,7 +65,7 @@ CardGenerator >> initializeDeck [
 ]
 
 { #category : #'instance creation' }
-CardGenerator >> initializeWithCards: aNumber [
+CardNumberGenerator >> initializeWithCards: aNumber [
 	cards:= OrderedCollection new.
 	amountOfCards := aNumber.
 	speeds := 0.
@@ -80,27 +80,27 @@ CardGenerator >> initializeWithCards: aNumber [
 ]
 
 { #category : #'instance variable' }
-CardGenerator >> overloads [
+CardNumberGenerator >> overloads [
 	^ overloads
 ]
 
 { #category : #'instance variable' }
-CardGenerator >> redos [
+CardNumberGenerator >> redos [
 	^ redos
 ]
 
 { #category : #'instance variable' }
-CardGenerator >> repeats [
+CardNumberGenerator >> repeats [
 	^ repeats
 ]
 
 { #category : #'instance variable' }
-CardGenerator >> reversals [
+CardNumberGenerator >> reversals [
 
 	^ reversals
 ]
 
 { #category : #'instance variable' }
-CardGenerator >> speeds [
+CardNumberGenerator >> speeds [
 	^ speeds
 ]
