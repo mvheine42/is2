@@ -38,6 +38,11 @@ OverloadCard >> name [
 ]
 
 { #category : #action }
+OverloadCard >> playOn: aCroupier affectingAll: aCardPlayers [ 
+	Error signal: 'To play card, choose a player'.
+]
+
+{ #category : #action }
 OverloadCard >> playOn: aCroupier to: aCardPlayers [
 
 	aCroupier recordPermanent: aCardPlayers

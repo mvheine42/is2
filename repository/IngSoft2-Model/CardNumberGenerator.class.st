@@ -1,5 +1,5 @@
 Class {
-	#name : #CardGenerator,
+	#name : #CardNumberGenerator,
 	#superclass : #Object,
 	#instVars : [
 		'amountOfCards',
@@ -9,37 +9,38 @@ Class {
 		'cancellations',
 		'redos',
 		'repeats',
-		'cards'
+		'cards',
+		'reversals'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #initialize }
-CardGenerator class >> setWithCards: aNumber [ 
+CardNumberGenerator class >> setWithCards: aNumber [ 
 	^(self new) initializeWithCards: aNumber.
 ]
 
 { #category : #'instance variable' }
-CardGenerator >> accelerations [
+CardNumberGenerator >> accelerations [
 	^ accelerations
 ]
 
 { #category : #'instance variable' }
-CardGenerator >> cancellations [
+CardNumberGenerator >> cancellations [
 	^ cancellations
 ]
 
 { #category : #'instance creation' }
-CardGenerator >> cards [
+CardNumberGenerator >> cards [
 
 	^ cards
 ]
 
 { #category : #'instance creation' }
-CardGenerator >> initializeDeck [
+CardNumberGenerator >> initializeDeck [
 	1 to: amountOfCards do: [ :index | 
 		| aNumber |
-		aNumber := 60 atRandom.
+		aNumber := 70 atRandom.
 		(aNumber > 0 and: aNumber <= 10) ifTrue: [ 
 			cards add: SpeedCard new.
 			speeds := speeds + 1 ].
@@ -57,11 +58,14 @@ CardGenerator >> initializeDeck [
 			redos := redos + 1 ].
 		(aNumber > 50 and: aNumber <= 60) ifTrue: [ 
 			cards add: RepeatCard new.
-			repeats := repeats + 1 ] ].
+			repeats := repeats + 1 ].
+		(aNumber > 60 and: aNumber <= 70) ifTrue: [ 
+			cards add: ReversalCard new.
+			reversals := reversals + 1 ] ].
 ]
 
 { #category : #'instance creation' }
-CardGenerator >> initializeWithCards: aNumber [
+CardNumberGenerator >> initializeWithCards: aNumber [
 	cards:= OrderedCollection new.
 	amountOfCards := aNumber.
 	speeds := 0.
@@ -70,26 +74,33 @@ CardGenerator >> initializeWithCards: aNumber [
 	cancellations := 0.
 	redos := 0.
 	repeats := 0.
+	reversals := 0.
 	self initializeDeck.
 	
 ]
 
 { #category : #'instance variable' }
-CardGenerator >> overloads [
+CardNumberGenerator >> overloads [
 	^ overloads
 ]
 
 { #category : #'instance variable' }
-CardGenerator >> redos [
+CardNumberGenerator >> redos [
 	^ redos
 ]
 
 { #category : #'instance variable' }
-CardGenerator >> repeats [
+CardNumberGenerator >> repeats [
 	^ repeats
 ]
 
 { #category : #'instance variable' }
-CardGenerator >> speeds [
+CardNumberGenerator >> reversals [
+
+	^ reversals
+]
+
+{ #category : #'instance variable' }
+CardNumberGenerator >> speeds [
 	^ speeds
 ]

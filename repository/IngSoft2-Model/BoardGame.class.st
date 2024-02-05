@@ -294,7 +294,7 @@ BoardGame >> throw: aCard from: aSpaceship affectingOnCell: aCellNumber [
 	croupier take: aCard from: aSpaceship on: self.
 	aCardPlayers := CardPlayers of: aCard with: spaceships.
 	(self validateRepeatOf: aCardPlayers) ifFalse: [ 
-		croupier playOnAll: aCardPlayers ].
+		croupier playAffectingAll:  aCardPlayers ].
 	aCellToReverse := board cellsEffect detect: [ :cell | 
 		               cell quantity = aCellNumber ].
 	aCard keepACellToReverse: aCellToReverse.

@@ -1,5 +1,5 @@
 Class {
-	#name : #CellGenerator,
+	#name : #CellNumberGenerator,
 	#superclass : #Object,
 	#instVars : [
 		'noEffects',
@@ -16,36 +16,36 @@ Class {
 }
 
 { #category : #initialize }
-CellGenerator class >> setWithCellEffects: aNumber [
+CellNumberGenerator class >> setWithCellEffects: aNumber [
 
 	^ self new initializeWithCellEffects: aNumber
 ]
 
 { #category : #'instance variables' }
-CellGenerator >> atomicBombs [
+CellNumberGenerator >> atomicBombs [
 
 	^ atomicBombs
 ]
 
 { #category : #'instance variables' }
-CellGenerator >> cards [
+CellNumberGenerator >> cards [
 	^cards
 ]
 
 { #category : #'instance creation' }
-CellGenerator >> cellsEffect [
+CellNumberGenerator >> cellsEffect [
 
 	^ cellEffects
 ]
 
 { #category : #'instance variables' }
-CellGenerator >> hyperJumps [
+CellNumberGenerator >> hyperJumps [
 
 	^ hyperJumps
 ]
 
 { #category : #'instance creation' }
-CellGenerator >> initializeCells [
+CellNumberGenerator >> initializeCells [
 
 	1 to: amountOfCells do: [ :index | 
 		| aNumber |
@@ -74,7 +74,7 @@ CellGenerator >> initializeCells [
 ]
 
 { #category : #'instance creation' }
-CellGenerator >> initializeWithCellEffects: aNumber [
+CellNumberGenerator >> initializeWithCellEffects: aNumber [
 	cellEffects := OrderedCollection new.
 	amountOfCells := aNumber.
 	noEffects := 0.
@@ -88,25 +88,25 @@ CellGenerator >> initializeWithCellEffects: aNumber [
 ]
 
 { #category : #'instance variables' }
-CellGenerator >> moonWalks [
+CellNumberGenerator >> moonWalks [
 
 	^ moonWalks
 ]
 
 { #category : #'instance variables' }
-CellGenerator >> noEffects [
+CellNumberGenerator >> noEffects [
 
 	^ noEffects
 ]
 
 { #category : #'instance variables' }
-CellGenerator >> speedUps [
+CellNumberGenerator >> speedUps [
 
 	^ speedUps
 ]
 
 { #category : #'instance variables' }
-CellGenerator >> wormHoles [
+CellNumberGenerator >> wormHoles [
 
 	^ wormHoles
 ]

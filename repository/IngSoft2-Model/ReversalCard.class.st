@@ -44,7 +44,22 @@ ReversalCard >> name [
 	^'reversal'.
 ]
 
+{ #category : #reversal }
+ReversalCard >> playOn: aCroupier affectingAll: aCardPlayers [ 
+	aCroupier recordPermanent: aCardPlayers.
+]
+
+{ #category : #action }
+ReversalCard >> playOn: aCroupier to: aCardPlayers [ 
+	Error signal: 'To play Reversal Card, please choose a cell number.'
+]
+
 { #category : #action }
 ReversalCard >> playOn: aCroupier toAll: aCardPlayers [ 
-	aCroupier recordPermanent: aCardPlayers.
+	Error signal: 'To play Reversal Card, choose a cell number'.
+]
+
+{ #category : #action }
+ReversalCard >> playOn: aCroupier toSelected: anInteger [ 
+	Error signal: 'To play Reversal Card, please choose a cell number.'.
 ]

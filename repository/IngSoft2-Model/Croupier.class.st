@@ -92,6 +92,11 @@ Croupier >> play: aCardPlayers on: aBoardGame [
 ]
 
 { #category : #play }
+Croupier >> playAffectingAll: aCardPlayers [ 
+	aCardPlayers cards playOn: self affectingAll: aCardPlayers.
+]
+
+{ #category : #play }
 Croupier >> playOnAll: aCardPlayers [ 
 	aCardPlayers cards playOn: self toAll: aCardPlayers.
 ]

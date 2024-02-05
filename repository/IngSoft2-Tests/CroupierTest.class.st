@@ -1311,68 +1311,117 @@ CroupierTest >> test34WhenASpaceshipThrowsRepeatCardNotChoosingACardThenCanNotTh
 	self should: [ aBoardGame throw: aRepeatCard from: 'Vicky'choosing: aSpeedCard.  ] raise: Error  withMessage: 'To play card, choose a player' .	
 ]
 
-{ #category : #asserting }
-CroupierTest >> test35WhenASpaceshipThrowsReversalCardOnSpeedUpCellThenSpaceshipGoesBackwardsWhenLandingOnCell [
+{ #category : #tests }
+CroupierTest >> test35WhenASpaceshipThrowsSpeedCardChoosingACellNumberThenCanNotThrowCard [
 
 	| spaceships aBoard aBoardGame aCroupier |
-	aDeckOfCards := DeckOfCards with: (OrderedCollection with: aReversalCard).
-	aCroupier := Croupier handling: aDeckOfCards. 
-	
 	spaceships := OrderedCollection new.
 	spaceships add: 'Vicky'.
 	spaceships add: 'Cami'.
-
 	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	
+	aDeckOfCards := DeckOfCards with: (OrderedCollection
+			                 with: aSpeedCard).
+	aCroupier := Croupier handling: aDeckOfCards.
+
 	aBoardGame := BoardGame
 		              playedBy: spaceships
-		              rolling: (OrderedCollection with: (LoadedDie of: #( 9 9 3 )))
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
-		              with: 2 managedBy: aCroupier.
+		              with: 3
+		              managedBy: aCroupier.
 		
-	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: 10.
+	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Vicky'.
 
-	aBoardGame playTurnFor: 'Vicky'.
-	aBoardGame playTurnFor: 'Cami'.
+	self should: [ 	aBoardGame throw: aSpeedCard from: 'Vicky' affectingOnCell: 1.  ] raise: Error  withMessage: 'To play card, choose a player' .
 	
-	self
-		assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber
-		equals: 6.
-
-	self
-		assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber
-		equals: 6.
 ]
 
-{ #category : #asserting }
-CroupierTest >> test36WhenASpaceshipThrowsReversalCardOnNoEffectCellAndOnSpeedUpCellThenOneReversesAndTheOtherDoesNot [
+{ #category : #tests }
+CroupierTest >> test36WhenASpaceshipThrowsOverloadCardChoosingACellNumberThenCanNotThrowCard [
 
 	| spaceships aBoard aBoardGame aCroupier |
-	aDeckOfCards := DeckOfCards with: (OrderedCollection with: aReversalCard).
-	aCroupier := Croupier handling: aDeckOfCards. 
-	
 	spaceships := OrderedCollection new.
 	spaceships add: 'Vicky'.
 	spaceships add: 'Cami'.
-
 	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection with: anOverloadCard).
+	aCroupier := Croupier handling: aDeckOfCards.
+
 	aBoardGame := BoardGame
 		              playedBy: spaceships
-		              rolling: (OrderedCollection with: (LoadedDie of: #( 3 9 3 )))
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
-		              with: 2 managedBy: aCroupier.
-		
-	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: 4.
+		              with: 3
+		              managedBy: aCroupier.
+
+	self
+		should: [ 
+		aBoardGame throw: anOverloadCard from: 'Vicky' affectingOnCell: 1 ]
+		raise: Error
+		withMessage: 'To play card, choose a player'
+]
+
+{ #category : #tests }
+CroupierTest >> test37WhenASpaceshipThrowsAccelerationCardChoosingACellNumberThenCanNotThrowCard [
+
+	| spaceships aBoard aBoardGame aCroupier |
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+
+	aDeckOfCards := DeckOfCards with:
+		                (OrderedCollection with: anAccelerationCard).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
+		              on: aBoard
+		              with: 3
+		              managedBy: aCroupier.
 
 	aBoardGame playTurnFor: 'Vicky'.
 	
-	aBoardGame throw: aReversalCard from: 'Cami' affectingOnCell: 10.
-	aBoardGame playTurnFor: 'Cami'.
-	
 	self
-		assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber
-		equals: 4.
+		should: [ 
+		aBoardGame throw: anAccelerationCard from: 'Cami' affectingOnCell: 1 ]
+		raise: Error
+		withMessage: 'You cannot choose a cell number for acceleration card.'
+]
+
+{ #category : #tests }
+CroupierTest >> test38WhenASpaceshipThrowsCancellationCardChoosingACellNumberThenCanNotThrowCard [
+
+	| spaceships aBoard aBoardGame  aCroupier |
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	
+		
+	aDeckOfCards := DeckOfCards with: (OrderedCollection
+			                 with: aSpeedCard with: aCancellationCard).
+	aCroupier := Croupier handling: aDeckOfCards.
+
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling:
+		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
+		              on: aBoard
+		              with: 3
+		              managedBy: aCroupier.
+
+	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Vicky'.
 
 	self
-		assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber
-		equals: 6.
+		should: [ aBoardGame throw: aCancellationCard from: 'Vicky' affectingOnCell: 1.]
+		raise: Error
+		withMessage: 'You have to choose a card'
 ]

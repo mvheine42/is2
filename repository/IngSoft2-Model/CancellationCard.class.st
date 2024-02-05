@@ -28,6 +28,11 @@ CancellationCard >> name [
 ]
 
 { #category : #action }
+CancellationCard >> playOn: aCroupier affectingAll: aCardPlayers [ 
+	Error signal: 'You have to choose a card'.
+]
+
+{ #category : #action }
 CancellationCard >> playOn: aCroupier to: aCardPlayers [ 
 	Error signal: 'You have to choose a card.'.
 ]

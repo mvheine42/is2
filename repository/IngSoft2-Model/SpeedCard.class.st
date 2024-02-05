@@ -38,6 +38,11 @@ SpeedCard >> name [
 ]
 
 { #category : #action }
+SpeedCard >> playOn: aCroupier affectingAll: aCardPlayers [ 
+	Error signal: 'To play card, choose a player'.
+]
+
+{ #category : #action }
 SpeedCard >> playOn: aCroupier to: aCardPlayers [
 
 	aCroupier recordPermanent: aCardPlayers
