@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'jumps',
-		'jumpsIndex'
+		'jumpsIndex',
+		'isReversed'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -21,7 +22,13 @@ HyperJumpEffect >> implementOn: aBoardGame [
 	value := jumps at: jumpsIndex .
 	jumpsIndex := jumpsIndex \\ jumps size + 1.
 	
-	aBoardGame applyHyperJumpEffect: (value parsecs quantity).
+	isReversed ifTrue:[aBoardGame applyHyperJumpEffect: (value parsecs quantity) negated]
+	ifFalse:[aBoardGame applyHyperJumpEffect: (value parsecs quantity)].
+]
+
+{ #category : #initialize }
+HyperJumpEffect >> initializeEffect [
+	isReversed := false.
 ]
 
 { #category : #'instance creation' }
@@ -32,8 +39,8 @@ HyperJumpEffect >> initializeWith: aSequenceOfJumps [
 ]
 
 { #category : #reverse }
-HyperJumpEffect >> reverseEffectOn: aCell [ 
-	|value|
-	value := jumps at: jumpsIndex.
-	value reverseValue.
+HyperJumpEffect >> reverseEffect [
+	isReversed
+		ifTrue: [ isReversed := false. ]
+		ifFalse: [ isReversed := true. ]
 ]

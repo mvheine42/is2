@@ -2,7 +2,8 @@ Class {
 	#name : #MoonWalkEffect,
 	#superclass : #Object,
 	#instVars : [
-		'number'
+		'number',
+		'isReversed'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -16,7 +17,14 @@ MoonWalkEffect class >> with: aNumber [
 { #category : #action }
 MoonWalkEffect >> implementOn: aBoardGame [
 
-	aBoardGame applyMoonWalkEffect: number
+	isReversed
+		ifTrue: [ aBoardGame applyMoonWalkEffect: number negated]
+		ifFalse: [ aBoardGame applyMoonWalkEffect: number ]
+]
+
+{ #category : #initialize }
+MoonWalkEffect >> initializeEffect [
+	isReversed := false.
 ]
 
 { #category : #'instance creation' }
@@ -26,6 +34,8 @@ MoonWalkEffect >> initializeWith: aNumber [
 ]
 
 { #category : #reverse }
-MoonWalkEffect >> reverseEffectOn: aCell [ 
-	number := number negated.
+MoonWalkEffect >> reverseEffect [
+	isReversed
+		ifTrue: [ isReversed := false. ]
+		ifFalse: [ isReversed := true. ]
 ]

@@ -1,16 +1,28 @@
 Class {
 	#name : #SpeedUpEffect,
 	#superclass : #Object,
+	#instVars : [
+		'isReversed'
+	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #action }
 SpeedUpEffect >> implementOn: aBoardGame [
 
-	aBoardGame applyMovingEffect: 4.
+	isReversed ifTrue:[aBoardGame applyMovingEffect: -4.]
+	ifFalse:[aBoardGame applyMovingEffect: 4.].
+]
+
+{ #category : #initialization }
+SpeedUpEffect >> initializeEffect [
+	isReversed := false.
 ]
 
 { #category : #reverse }
-SpeedUpEffect >> reverseEffectOn: aCell [ 
-	aCell reverseEffect: WormHoleEffect new.
+SpeedUpEffect >> reverseEffect [
+
+	isReversed
+		ifTrue: [ isReversed := false. ]
+		ifFalse: [ isReversed := true. ]
 ]

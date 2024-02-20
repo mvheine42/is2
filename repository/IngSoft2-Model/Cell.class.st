@@ -33,7 +33,7 @@ Cell >> effect [
 Cell >> initializeOf: aCellNumber and: anEffect [
 
 	number := aCellNumber.
-	effect := anEffect
+	effect := anEffect initializeEffect.
 ]
 
 { #category : #'instance variable' }

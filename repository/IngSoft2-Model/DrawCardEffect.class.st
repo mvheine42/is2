@@ -1,6 +1,9 @@
 Class {
 	#name : #DrawCardEffect,
 	#superclass : #Object,
+	#instVars : [
+		'isReversed'
+	],
 	#category : #'IngSoft2-Model'
 }
 
@@ -9,7 +12,14 @@ DrawCardEffect >> implementOn: aBoardGame [
 	aBoardGame dealACardEffect.
 ]
 
+{ #category : #initialize }
+DrawCardEffect >> initializeEffect [
+	isReversed := false.
+]
+
 { #category : #reverse }
-DrawCardEffect >> reverseEffectOn: aCell [ 
-	.
+DrawCardEffect >> reverseEffect [
+	isReversed
+		ifTrue: [ isReversed := false. ]
+		ifFalse: [ isReversed := true. ]
 ]
