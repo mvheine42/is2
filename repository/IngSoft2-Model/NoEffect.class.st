@@ -21,8 +21,3 @@ NoEffect >> initializeEffect [
 NoEffect >> reverseEffect [
 	isReversed := true.
 ]
-
-{ #category : #reverse }
-NoEffect >> reverseEffectOn: aCell [ 
-	.
-]
