@@ -18,11 +18,6 @@ Cell class >> on: aCellNumber of: anEffect [
 	^ self new initializeOf: aCellNumber and: anEffect
 ]
 
-{ #category : #reverse }
-Cell >> applyReverseEffect [
-	effect reverseEffectOn: self.
-]
-
 { #category : #'instance variable' }
 Cell >> effect [
 
@@ -33,16 +28,11 @@ Cell >> effect [
 Cell >> initializeOf: aCellNumber and: anEffect [
 
 	number := aCellNumber.
-	effect := anEffect
+	effect := anEffect initializeEffect.
 ]
 
 { #category : #'instance variable' }
 Cell >> quantity [
 
 	^ number
-]
-
-{ #category : #reverse }
-Cell >> reverseEffect: anEffect [
-	effect := anEffect.
 ]

@@ -1,6 +1,9 @@
 Class {
 	#name : #NoEffect,
 	#superclass : #Object,
+	#instVars : [
+		'isReversed'
+	],
 	#category : #'IngSoft2-Model'
 }
 
@@ -9,7 +12,12 @@ NoEffect >> implementOn: aBoardGame [
 	
 ]
 
+{ #category : #intialization }
+NoEffect >> initializeEffect [
+	isReversed := false.
+]
+
 { #category : #reverse }
-NoEffect >> reverseEffectOn: aCell [ 
-	.
+NoEffect >> reverseEffect [
+	isReversed := true.
 ]

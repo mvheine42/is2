@@ -250,7 +250,7 @@ BoardGame >> revertReversalEffect: aBoard of: aReversalCard [
 		                            :aCell | 
 		                            (aCell quantity)
 		                            == aReversalCard cellNumber ].
-	aCellToRevert applyReverseEffect.
+	(aCellToRevert effect) reverseEffect. 
 ]
 
 { #category : #action }
@@ -297,8 +297,8 @@ BoardGame >> throw: aCard from: aSpaceship affectingOnCell: aCellNumber [
 		croupier playAffectingAll:  aCardPlayers ].
 	aCellToReverse := board cellsEffect detect: [ :cell | 
 		               cell quantity = aCellNumber ].
+	(aCellToReverse effect) reverseEffect.
 	aCard keepACellToReverse: aCellToReverse.
-	aCellToReverse applyReverseEffect.
 ]
 
 { #category : #cards }
