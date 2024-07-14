@@ -232,6 +232,11 @@ BoardGame >> relocatesSpaceshipPositionTo: aNumber [
 	self applyEffect
 ]
 
+{ #category : #effects }
+BoardGame >> removeACard [
+	croupier takeACardFrom: playingSpaceshipPosition spaceships.
+]
+
 { #category : #cards }
 BoardGame >> repeatCardTo: aSpaceship [
 

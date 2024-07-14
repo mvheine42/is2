@@ -5,23 +5,25 @@ Class {
 		'aReversalCard',
 		'aCancellationCard',
 		'aDeckOfCards',
-		'aCroupier'
+		'aCroupier',
+		'anOverloadCard'
 	],
 	#category : #'IngSoft2-Tests'
 }
 
 { #category : #running }
 ReversalCardTest >> setUp [
-	
+
 	super setUp.
 
 	aReversalCard := ReversalCard new.
 	aCancellationCard := CancellationCard new.
+	anOverloadCard := OverloadCard new.
 	aDeckOfCards := DeckOfCards with: (OrderedCollection
 			                 with: aReversalCard
 			                 with: aCancellationCard).
-			
-	aCroupier := Croupier handling: aDeckOfCards.
+
+	aCroupier := Croupier handling: aDeckOfCards
 ]
 
 { #category : #running }
@@ -763,4 +765,51 @@ ReversalCardTest >> test18WhenASpaceshipThrowsReversalCardNotChoosingACellNumber
 		raise: Error
 		withMessage: 'To play Reversal Card, choose a cell number'
 
+]
+
+{ #category : #tests }
+ReversalCardTest >> test19WhenASpaceshipThrowsAReversalCardAffectingDrawCardEffectThenASpaceshipHasCardRemoved [
+
+	| spaceships aBoard aBoardGame cellEffects aMoonWalkEffect|
+	
+	aMoonWalkEffect := MoonWalkEffect with: 5.
+	
+	cellEffects := OrderedCollection new.
+	cellEffects add: (Cell on: 1 of: NoEffect new).
+	cellEffects add: (Cell on: 2 of: NoEffect new).
+	cellEffects add: (Cell on: 3 of: HyperJumpEffect new).
+	cellEffects add: (Cell on: 4 of: NoEffect new).
+	cellEffects add: (Cell on: 5 of: DrawCardEffect new).
+	cellEffects add: (Cell on: 6 of: WormHoleEffect new).
+	cellEffects add: (Cell on: 7 of: NoEffect new).
+	cellEffects add: (Cell on: 8 of: aMoonWalkEffect).
+	cellEffects add: (Cell on: 9 of: AtomicBombEffect new).
+	cellEffects add: (Cell on: 10 of: SpeedUpEffect new).
+	
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+		
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling: (OrderedCollection with: (LoadedDie of: #( 4 7 3 )))
+		              on: aBoard
+		              with: 2 managedBy: aCroupier.
+	
+	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: 5.
+
+	aBoardGame playTurnFor: 'Vicky'.
+	
+	aBoardGame throw: aReversalCard from: 'Cami' affectingOnCell: 9.
+	
+	aBoardGame playTurnFor: 'Cami'.
+	
+	self
+		assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber
+		equals: 1.
+
+	self
+		assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber
+		equals: 8.
 ]

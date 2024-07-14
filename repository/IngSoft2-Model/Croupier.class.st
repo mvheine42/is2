@@ -128,3 +128,11 @@ Croupier >> take: aCard from: aSpaceship on: aBoardGame [
 	aPlayerCards removeCard: aCard id.
 	
 ]
+
+{ #category : #action }
+Croupier >> takeACardFrom: aSpaceship [
+	| aPlayerCards aCard|
+	aPlayerCards:= self playerCardOf: aSpaceship.
+	aCard := (aPlayerCards cards at: 1).
+	aPlayerCards removeCard: aCard id.
+]
