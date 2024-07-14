@@ -250,12 +250,8 @@ BoardGame >> repeatCardTo: aSpaceship [
 
 { #category : #reverse }
 BoardGame >> revertReversalEffect: aBoard of: aReversalCard [ 
-	|aCellToRevert|
-	aCellToRevert := aBoard cellsEffect detect: [ 
-		                            :aCell | 
-		                            (aCell quantity)
-		                            == aReversalCard cellNumber ].
-	(aCellToRevert effect) reverseEffect. 
+	
+	(aReversalCard acell effect) reverseEffect.
 ]
 
 { #category : #action }
