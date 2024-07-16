@@ -198,8 +198,7 @@ BoardGame >> playTurnFor: aSpaceship [
 					self validatePlayingSpaceshipPosition.
 					self relocatesSpaceshipPositionTo: self totalAmount.
 					self validateWinner: playingSpaceshipPosition.
-
-					turn := turn \\ spaceships size + 1 ]]
+					self turn ]]
 		ifTrue: [ self validateKeepPlaying ].
 ]
 
@@ -256,7 +255,7 @@ BoardGame >> revertReversalEffect: aBoard of: aReversalCard [
 
 { #category : #action }
 BoardGame >> skipTurn [
-	turn := turn \\ spaceships size + 1.
+	self turn.
 	playingSpaceshipPosition enableToPlay.
 ]
 
@@ -337,6 +336,11 @@ BoardGame >> throwDice [
 BoardGame >> totalAmount [
 
 	^ self throwDice + (croupier permanentCardsOf: playingSpaceshipPosition spaceships).
+]
+
+{ #category : #turn }
+BoardGame >> turn [
+	turn := turn \\ spaceships size + 1.
 ]
 
 { #category : #validation }
