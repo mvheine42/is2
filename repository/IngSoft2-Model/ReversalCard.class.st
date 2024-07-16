@@ -34,17 +34,14 @@ ReversalCard >> implementOn: aCroupier [
 ]
 
 { #category : #'instance variable' }
-ReversalCard >> keepACellToReverse: aCell [
-	cell := aCell.
-]
-
-{ #category : #'instance variable' }
 ReversalCard >> name [
 	^'reversal'.
 ]
 
-{ #category : #reversal }
-ReversalCard >> playOn: aCroupier affectingAll: aCardPlayers [ 
+{ #category : #play }
+ReversalCard >> playOn: aCroupier reversing: aCell affecting: aCardPlayers [ 
+	aCell effect reverseEffect.
+	cell := aCell.
 	aCroupier recordPermanent: aCardPlayers.
 ]
 

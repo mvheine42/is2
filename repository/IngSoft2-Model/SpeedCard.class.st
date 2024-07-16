@@ -37,8 +37,8 @@ SpeedCard >> name [
 	^ 'speed'
 ]
 
-{ #category : #action }
-SpeedCard >> playOn: aCroupier affectingAll: aCardPlayers [ 
+{ #category : #play }
+SpeedCard >> playOn: aCroupier reversing: aCell affecting: aCardPlayers [
 	Error signal: 'To play card, choose a player'.
 ]
 

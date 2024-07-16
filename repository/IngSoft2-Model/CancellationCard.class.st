@@ -27,8 +27,8 @@ CancellationCard >> name [
 	^'cancellation'.
 ]
 
-{ #category : #action }
-CancellationCard >> playOn: aCroupier affectingAll: aCardPlayers [ 
+{ #category : #play }
+CancellationCard >> playOn: aCroupier reversing: aCell affecting: aCardPlayers [
 	Error signal: 'You have to choose a card'.
 ]
 

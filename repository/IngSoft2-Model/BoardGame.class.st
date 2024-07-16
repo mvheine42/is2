@@ -290,16 +290,13 @@ BoardGame >> throw: aCard from: aSpaceship [
 ]
 
 { #category : #cards }
-BoardGame >> throw: aCard from: aSpaceship affectingOnCell: aCellNumber [
-	| aCardPlayers aCellToReverse |
+BoardGame >> throw: aCard from: aSpaceship affectingOnCell: aCell [
+	| aCardPlayers |
 	croupier take: aCard from: aSpaceship on: self.
 	aCardPlayers := CardPlayers of: aCard with: spaceships.
 	(self validateRepeatOf: aCardPlayers) ifFalse: [ 
-		croupier playAffectingAll:  aCardPlayers ].
-	aCellToReverse := board cellsEffect detect: [ :cell | 
-		               cell quantity = aCellNumber ].
-	(aCellToReverse effect) reverseEffect.
-	aCard keepACellToReverse: aCellToReverse.
+		croupier play: aCard reversing: aCell affecting: aCardPlayers.].
+
 ]
 
 { #category : #cards }

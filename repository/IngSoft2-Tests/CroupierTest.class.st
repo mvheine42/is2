@@ -10,7 +10,8 @@ Class {
 		'aCancellationCard',
 		'aRepeatCard',
 		'aRedoCard',
-		'aReversalCard'
+		'aReversalCard',
+		'aNoCell'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -1334,7 +1335,7 @@ CroupierTest >> test35WhenASpaceshipThrowsSpeedCardChoosingACellNumberThenCanNot
 		
 	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Vicky'.
 
-	self should: [ 	aBoardGame throw: aSpeedCard from: 'Vicky' affectingOnCell: 1.  ] raise: Error  withMessage: 'To play card, choose a player' .
+	self should: [ 	aBoardGame throw: aSpeedCard from: 'Vicky' affectingOnCell: aNoCell.  ] raise: Error  withMessage: 'To play card, choose a player' .
 	
 ]
 
@@ -1361,7 +1362,7 @@ CroupierTest >> test36WhenASpaceshipThrowsOverloadCardChoosingACellNumberThenCan
 
 	self
 		should: [ 
-		aBoardGame throw: anOverloadCard from: 'Vicky' affectingOnCell: 1 ]
+		aBoardGame throw: anOverloadCard from: 'Vicky' affectingOnCell: aNoCell ]
 		raise: Error
 		withMessage: 'To play card, choose a player'
 ]
@@ -1391,7 +1392,7 @@ CroupierTest >> test37WhenASpaceshipThrowsAccelerationCardChoosingACellNumberThe
 	
 	self
 		should: [ 
-		aBoardGame throw: anAccelerationCard from: 'Cami' affectingOnCell: 1 ]
+		aBoardGame throw: anAccelerationCard from: 'Cami' affectingOnCell: aNoCell ]
 		raise: Error
 		withMessage: 'You cannot choose a cell number for acceleration card.'
 ]
@@ -1421,7 +1422,7 @@ CroupierTest >> test38WhenASpaceshipThrowsCancellationCardChoosingACellNumberThe
 	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Vicky'.
 
 	self
-		should: [ aBoardGame throw: aCancellationCard from: 'Vicky' affectingOnCell: 1.]
+		should: [ aBoardGame throw: aCancellationCard from: 'Vicky' affectingOnCell: aNoCell.]
 		raise: Error
 		withMessage: 'You have to choose a card'
 ]

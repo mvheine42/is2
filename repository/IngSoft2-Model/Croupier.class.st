@@ -92,8 +92,9 @@ Croupier >> play: aCardPlayers on: aBoardGame [
 ]
 
 { #category : #play }
-Croupier >> playAffectingAll: aCardPlayers [ 
-	aCardPlayers cards playOn: self affectingAll: aCardPlayers.
+Croupier >> play: aCard reversing: aCell affecting: aCardPlayers [ 
+	aCard playOn: self reversing: aCell affecting: aCardPlayers.
+	
 ]
 
 { #category : #play }
@@ -114,7 +115,6 @@ Croupier >> playerCardOf: aSpaceship [
 
 { #category : #action }
 Croupier >> recordPermanent: aCardPlayers [
-
 	permanentCardsPlayers add: aCardPlayers.
 	lastCardPlayed := aCardPlayers cards
 ]

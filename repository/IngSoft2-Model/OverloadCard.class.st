@@ -37,8 +37,8 @@ OverloadCard >> name [
 	^'overload'.
 ]
 
-{ #category : #action }
-OverloadCard >> playOn: aCroupier affectingAll: aCardPlayers [ 
+{ #category : #play }
+OverloadCard >> playOn: aCroupier reversing: aCell affecting: aCardPlayers [
 	Error signal: 'To play card, choose a player'.
 ]
 
