@@ -120,13 +120,10 @@ Croupier >> recordPermanent: aCardPlayers [
 ]
 
 { #category : #play }
-Croupier >> take: aCard from: aSpaceship on: aBoardGame [
-	
+Croupier >> take: aCard fromTheHandOf: aSpaceship [
 	| aPlayerCards |
-	aCard canBePlayedIn: aBoardGame for: aSpaceship.
 	aPlayerCards:= self playerCardOf: aSpaceship.
 	aPlayerCards removeCard: aCard id.
-	
 ]
 
 { #category : #action }

@@ -6,7 +6,8 @@ Class {
 		'aCancellationCard',
 		'aDeckOfCards',
 		'aCroupier',
-		'anOverloadCard'
+		'anOverloadCard',
+		'aPenalizer'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -23,7 +24,8 @@ ReversalCardTest >> setUp [
 			                 with: aReversalCard
 			                 with: aCancellationCard).
 
-	aCroupier := Croupier handling: aDeckOfCards
+	aCroupier := Croupier handling: aDeckOfCards.
+	aPenalizer := Penalizer new.
 ]
 
 { #category : #running }
@@ -66,7 +68,7 @@ ReversalCardTest >> test01WhenASpaceshipThrowsReversalCardOnSpeedUpCellThenSpace
 		              playedBy: spaceships
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 9 9 3 )))
 		              on: aBoard
-		              with: 2 managedBy: aCroupier.
+		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
 		
 	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aSpeedUpCell.
 
@@ -112,7 +114,7 @@ ReversalCardTest >> test02WhenASpaceshipThrowsReversalCardOnNoEffectCellAndOnSpe
 		              playedBy: spaceships
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 3 9 3 )))
 		              on: aBoard
-		              with: 2 managedBy: aCroupier.
+		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
 		
 	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aNoEffectCell.
 
@@ -159,7 +161,7 @@ ReversalCardTest >> test03WhenASpaceshipThrowsAReversalCardAffectingWormHoleEffe
 		              playedBy: spaceships
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 5 9 3 )))
 		              on: aBoard
-		              with: 2 managedBy: aCroupier.
+		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
 		
 	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aWormHoleCell.
 
@@ -198,7 +200,7 @@ ReversalCardTest >> test04ASpaceshipThrowsAReservalCardAffectingHyperJumpCellThe
 		              playedBy: spaceships
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 6 3 3 )))
 		              on: aBoard
-		              with: 3 managedBy: aCroupier.
+		              with: 3 managedBy: aCroupier controlledBy: aPenalizer.
 		
 	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aHyperJumpCell.
 
@@ -246,7 +248,7 @@ ReversalCardTest >> test06WhenASpaceshipThrowsAReversalCardAffectingMoonWalkEffe
 		              playedBy: spaceships
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 1 7 3 )))
 		              on: aBoard
-		              with: 2 managedBy: aCroupier.
+		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
 		
 	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aMoonWalkCell .
 
@@ -293,7 +295,7 @@ ReversalCardTest >> test07WhenASpaceshipThrowsReversalCardAffectingAtomicBombEff
 		              playedBy: spaceships
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 8 7 3 )))
 		              on: aBoard
-		              with: 2 managedBy: aCroupier.
+		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
 		
 	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: anAtomicBombCell.
 
@@ -340,7 +342,7 @@ ReversalCardTest >> test08WhenASpaceshipThrowsReversalCardAffectingDrawCardEffec
 		              playedBy: spaceships
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 4 7 3 )))
 		              on: aBoard
-		              with: 2 managedBy: aCroupier.
+		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
 		
 	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aDrawCardCell.
 
@@ -381,7 +383,7 @@ ReversalCardTest >> test09WhenASpaceshipThrowsReversalCardOnSpeedUpEffectAndOthe
 		              playedBy: spaceships
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 4 4 3 )))
 		              on: aBoard
-		              with: 4 managedBy: aCroupier.
+		              with: 4 managedBy: aCroupier controlledBy: aPenalizer.
 		
 	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aSpeedUpCell.
 
@@ -423,7 +425,7 @@ ReversalCardTest >> test10WheASpaceshipThrowsReversalCardAffectingWormHoleEffect
 		              playedBy: spaceships
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 4 4 3 )))
 		              on: aBoard
-		              with: 4 managedBy: aCroupier.
+		              with: 4 managedBy: aCroupier controlledBy: aPenalizer.
 		
 	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aWormHoleCell.
 
@@ -465,7 +467,7 @@ ReversalCardTest >> test11WheASpaceshipThrowsReversalCardAffectingSpeedUpEffectA
 		              playedBy: spaceships
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 4 4 3 )))
 		              on: aBoard
-		              with: 4 managedBy: aCroupier.
+		              with: 4 managedBy: aCroupier controlledBy: aPenalizer.
 		
 	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aSpeedUpCell.
 
@@ -509,7 +511,7 @@ ReversalCardTest >> test12WheASpaceshipThrowsReversalCardAffectingHyperJumpEffec
 		              playedBy: spaceships
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 4 4 3 )))
 		              on: aBoard
-		              with: 4 managedBy: aCroupier.
+		              with: 4 managedBy: aCroupier controlledBy: aPenalizer.
 		
 	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aHyperJumpCell.
 
@@ -561,7 +563,7 @@ ReversalCardTest >> test13WheASpaceshipThrowsReversalCardAffectingMoonWalkEffect
 		              (OrderedCollection with: (LoadedDie of: #( 4 4 3 )))
 		              on: aBoard
 		              with: 4
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 
 	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aMoonWalkCell.
 
@@ -617,7 +619,7 @@ ReversalCardTest >> test14WheASpaceshipThrowsReversalCardAffectingAtomicBombEffe
 		              playedBy: spaceships
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 4 4 3 )))
 		              on: aBoard
-		              with: 4 managedBy: aCroupier.
+		              with: 4 managedBy: aCroupier controlledBy: aPenalizer.
 		
 	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: anAtomicBombCell.
 
@@ -664,7 +666,7 @@ ReversalCardTest >> test15WhenASpaceshipThrowsAReversalCardChoosingAnotherSpache
 		              (OrderedCollection with: (LoadedDie of: #( 3 9 3 )))
 		              on: aBoard
 		              with: 2
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 
 	self
 		should: [ aBoardGame throw: aReversalCard from: 'Vicky' to: 'Vicky' ]
@@ -700,7 +702,7 @@ ReversalCardTest >> test16WhenASpaceshipThrowsReversalCardChoosingACardNumberThe
 		              (OrderedCollection with: (LoadedDie of: #( 3 9 3 )))
 		              on: aBoard
 		              with: 2
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 
 	self
 		should: [ aBoardGame throw: aReversalCard from: 'Vicky' choosing: 1 ]
@@ -736,7 +738,7 @@ ReversalCardTest >> test17WhenASpaceshipThrowsReversalCardNotChoosingACellNumber
 		              (OrderedCollection with: (LoadedDie of: #( 3 9 3 )))
 		              on: aBoard
 		              with: 2
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 	
 	self
 		should: [ aBoardGame throw: aReversalCard from: 'Vicky'. ]
@@ -777,7 +779,7 @@ ReversalCardTest >> test18WhenASpaceshipThrowsAReversalCardAffectingDrawCardEffe
 		              playedBy: spaceships
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 4 7 3 )))
 		              on: aBoard
-		              with: 2 managedBy: aCroupier.
+		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
 	
 	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aDrawCardCell.
 

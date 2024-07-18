@@ -10,7 +10,7 @@ Class {
 { #category : #action }
 OverloadCard >> canBePlayedIn: aBoardGame for: aSpaceship [
 
-	aBoardGame validatePermanentPlayFor: aSpaceship
+	aBoardGame validateSpaceshipTurnFor: aSpaceship.
 ]
 
 { #category : #'instance variables' }

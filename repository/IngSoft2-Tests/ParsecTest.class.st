@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'cellEffects',
 		'aDeckOfCards',
-		'aCroupier'
+		'aCroupier',
+		'aPenalizer'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -17,7 +18,8 @@ ParsecTest >> setUp [
 			                 with: OverloadCard new
 			                 with: AccelerationCard new
 			                 with: CancellationCard new).
-	aCroupier := Croupier handling: aDeckOfCards
+	aCroupier := Croupier handling: aDeckOfCards.
+	aPenalizer := Penalizer new.
 ]
 
 { #category : #tests }
@@ -42,7 +44,7 @@ ParsecTest >> test01WhenASpaceshipLandsOnHyperJumpwWithParsecsAndLightYearsThenM
 		              rolling:
 		              (OrderedCollection with: (LoadedDie of: #( 1 1 3 )))
 		              on: aBoard
-		              with: 2 managedBy: aCroupier.
+		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
 
 	aBoardGame playTurnFor: 'Vicky'.
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 4.
@@ -79,7 +81,7 @@ ParsecTest >> test02WhenABoardInLightYearsAndSpaceshipLandsOnHyperJumpThenSpacec
 		              rolling:
 		              (OrderedCollection with: (LoadedDie of: #( 1 1 3 )))
 		              on: aBoard
-		              with: 2 managedBy: aCroupier.
+		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
 
 	aBoardGame playTurnFor: 'Vicky'.
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 4.
@@ -116,7 +118,7 @@ ParsecTest >> test03WhenABoardInNegativeLightYearsAndSpaceshipLandsOnHyperJumpTh
 		              rolling:
 		              (OrderedCollection with: (LoadedDie of: #( 1 1 3 )))
 		              on: aBoard
-		              with: 2 managedBy: aCroupier.
+		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
 
 	aBoardGame playTurnFor: 'Vicky'.
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 1.

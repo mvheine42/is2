@@ -10,7 +10,7 @@ Class {
 { #category : #action }
 AccelerationCard >> canBePlayedIn: aBoardGame for: aSpaceship [
 
-	aBoardGame validatePermanentPlayFor: aSpaceship
+	aBoardGame validateSpaceshipTurnFor: aSpaceship.
 ]
 
 { #category : #'instance variable' }
