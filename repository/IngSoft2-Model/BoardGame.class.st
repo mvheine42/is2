@@ -10,8 +10,6 @@ Class {
 		'winner',
 		'rounds',
 		'isOver',
-		'lastCardPlayed',
-		'playingCard',
 		'lastCellEffect',
 		'playingSpaceshipPosition',
 		'croupier',
@@ -19,18 +17,6 @@ Class {
 	],
 	#category : #'IngSoft2-Model'
 }
-
-{ #category : #initialization }
-BoardGame class >> playedBy: spaceships rolling: dice on: aBoard with: rounds managedBy: aCroupier [ 
-
-	self validateCanExistWith: spaceships andWith: rounds.
-	^ self new
-		  initializePlayedBy: spaceships
-		  rolling: dice
-		  on: aBoard
-		  winningAfter: rounds
-		  managedBy: aCroupier.
-]
 
 { #category : #initialization }
 BoardGame class >> playedBy: spaceships rolling: dice on: aBoard with: rounds managedBy: aCroupier controlledBy: aPenalizer [ 
@@ -376,14 +362,6 @@ BoardGame >> validateAbilityToPlayOf: aSpaceship [
 BoardGame >> validateKeepPlaying [
 
 	Error signal: 'There is a winner, you cant keep moving forward'
-]
-
-{ #category : #validation }
-BoardGame >> validateRedoCard [
-
-	(lastCardPlayed = '')ifTrue: [ 
-		Error signal: 'A card hasn´t been played yet' ].
-	playingCard := lastCardPlayed
 ]
 
 { #category : #cards }
