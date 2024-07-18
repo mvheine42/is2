@@ -7,11 +7,6 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #action }
-RepeatCard >> canBePlayedIn: aBoardGame for: aSpaceship [ 
-
-]
-
 { #category : #'instance variable' }
 RepeatCard >> id [
 

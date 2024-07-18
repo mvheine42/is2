@@ -7,12 +7,6 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #action }
-AccelerationCard >> canBePlayedIn: aBoardGame for: aSpaceship [
-
-	aBoardGame validatePermanentPlayFor: aSpaceship
-]
-
 { #category : #'instance variable' }
 AccelerationCard >> id [
 	^cardId 
@@ -33,8 +27,8 @@ AccelerationCard >> name [
 	'acceleration'.
 ]
 
-{ #category : #action }
-AccelerationCard >> playOn: aCroupier affectingAll: aCardPlayers [ 
+{ #category : #PLAY }
+AccelerationCard >> playOn: aCroupier reversing: aCell affecting: aCardPlayers [
 	Error signal: 'You cannot choose a cell number for acceleration card.'.
 ]
 

@@ -3,19 +3,14 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'cardId',
-		'cellNumber'
+		'cell'
 	],
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #action }
-ReversalCard >> canBePlayedIn: aBoardGame for: aSpaceship [
-	aBoardGame validatePermanentPlayFor: aSpaceship.
-]
-
 { #category : #'instance variable' }
-ReversalCard >> cellNumber [
-	^cellNumber.
+ReversalCard >> acell [
+	^cell.
 ]
 
 { #category : #'instance variables' }
@@ -33,19 +28,15 @@ ReversalCard >> implementOn: aCroupier [
 	^0.
 ]
 
-{ #category : #reverse }
-ReversalCard >> keepACellToReverse: aCell [ 
-	cellNumber := aCell quantity.
-	
-]
-
 { #category : #'instance variable' }
 ReversalCard >> name [
 	^'reversal'.
 ]
 
-{ #category : #reversal }
-ReversalCard >> playOn: aCroupier affectingAll: aCardPlayers [ 
+{ #category : #play }
+ReversalCard >> playOn: aCroupier reversing: aCell affecting: aCardPlayers [ 
+	aCell effect reverseEffect.
+	cell := aCell.
 	aCroupier recordPermanent: aCardPlayers.
 ]
 

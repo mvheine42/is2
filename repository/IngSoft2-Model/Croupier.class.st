@@ -92,8 +92,9 @@ Croupier >> play: aCardPlayers on: aBoardGame [
 ]
 
 { #category : #play }
-Croupier >> playAffectingAll: aCardPlayers [ 
-	aCardPlayers cards playOn: self affectingAll: aCardPlayers.
+Croupier >> play: aCard reversing: aCell affecting: aCardPlayers [ 
+	aCard playOn: self reversing: aCell affecting: aCardPlayers.
+	
 ]
 
 { #category : #play }
@@ -114,17 +115,21 @@ Croupier >> playerCardOf: aSpaceship [
 
 { #category : #action }
 Croupier >> recordPermanent: aCardPlayers [
-
 	permanentCardsPlayers add: aCardPlayers.
 	lastCardPlayed := aCardPlayers cards
 ]
 
 { #category : #play }
-Croupier >> take: aCard from: aSpaceship on: aBoardGame [
-	
+Croupier >> take: aCard fromTheHandOf: aSpaceship [
 	| aPlayerCards |
-	aCard canBePlayedIn: aBoardGame for: aSpaceship.
 	aPlayerCards:= self playerCardOf: aSpaceship.
 	aPlayerCards removeCard: aCard id.
-	
+]
+
+{ #category : #action }
+Croupier >> takeACardFrom: aSpaceship [
+	| aPlayerCards aCard|
+	aPlayerCards:= self playerCardOf: aSpaceship.
+	aCard := (aPlayerCards cards at: 1).
+	aPlayerCards removeCard: aCard id.
 ]

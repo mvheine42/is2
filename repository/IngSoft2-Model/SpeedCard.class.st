@@ -7,12 +7,6 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #action }
-SpeedCard >> canBePlayedIn: aBoardGame for: aSpaceship [
-
-	aBoardGame validatePermanentPlayFor: aSpaceship
-]
-
 { #category : #'instance variable' }
 SpeedCard >> id [
 
@@ -37,8 +31,8 @@ SpeedCard >> name [
 	^ 'speed'
 ]
 
-{ #category : #action }
-SpeedCard >> playOn: aCroupier affectingAll: aCardPlayers [ 
+{ #category : #play }
+SpeedCard >> playOn: aCroupier reversing: aCell affecting: aCardPlayers [
 	Error signal: 'To play card, choose a player'.
 ]
 

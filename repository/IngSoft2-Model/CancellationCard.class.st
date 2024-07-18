@@ -7,11 +7,6 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #action }
-CancellationCard >> canBePlayedIn: aBoardGame for: aSpaceship [ 
-	
-]
-
 { #category : #'instance variable' }
 CancellationCard >> id [
 	^cardId 
@@ -27,8 +22,8 @@ CancellationCard >> name [
 	^'cancellation'.
 ]
 
-{ #category : #action }
-CancellationCard >> playOn: aCroupier affectingAll: aCardPlayers [ 
+{ #category : #play }
+CancellationCard >> playOn: aCroupier reversing: aCell affecting: aCardPlayers [
 	Error signal: 'You have to choose a card'.
 ]
 

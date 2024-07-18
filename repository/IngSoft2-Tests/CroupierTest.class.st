@@ -10,7 +10,9 @@ Class {
 		'aCancellationCard',
 		'aRepeatCard',
 		'aRedoCard',
-		'aReversalCard'
+		'aReversalCard',
+		'aNoCell',
+		'aPenalizer'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -19,8 +21,11 @@ Class {
 CroupierTest >> setUp [
 
 	super setUp.
+	
+	aNoCell := Cell on: 1 of: NoEffect new.
+	
 	cellEffects := OrderedCollection new.
-	cellEffects add: (Cell on: 1 of: NoEffect new).
+	cellEffects add: aNoCell.
 	cellEffects add: (Cell on: 2 of: NoEffect new).
 	cellEffects add: (Cell on: 3 of: NoEffect new).
 	cellEffects add: (Cell on: 4 of: NoEffect new).
@@ -38,6 +43,8 @@ CroupierTest >> setUp [
 	aRepeatCard := RepeatCard new.
 	aRedoCard := RedoCard new.
 	aReversalCard := ReversalCard new.
+	
+	aPenalizer := Penalizer new.
 ]
 
 { #category : #asserting }
@@ -68,7 +75,7 @@ CroupierTest >> test01WhenASpaceshipPlaysASpeedCardThenStaysOnTheGame [
 		              playedBy: spaceships
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
-		              with: 2 managedBy: aCroupier.
+		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
 
 
 	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Cami'.
@@ -105,7 +112,7 @@ CroupierTest >> test02WhenTwoSpeedCardsAffectASpaceshipThenSpaceshipMovesAffecte
 		              playedBy: spaceships
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
-		              with: 2 managedBy: aCroupier.
+		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
 
 	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Cami'.
 	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Cami'.
@@ -142,7 +149,7 @@ CroupierTest >> test03WhenSpaceshipTriesToThrowSpeedCardThenCannotThrowIt [
 		              playedBy: spaceships
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
-		              with: 2 managedBy: aCroupier.
+		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
 
 	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Cami'.
 	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Cami'.
@@ -170,7 +177,7 @@ CroupierTest >> test04WhenASpaceshipPlaysOverloadCardThenAffectedSpaceshipIsMove
 		              playedBy: spaceships
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 1 5 3 )))
 		              on: aBoard
-		              with: 2 managedBy: aCroupier.
+		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
 		
 	aBoardGame throw: anOverloadCard from: 'Vicky' to: 'Cami'.
 	aBoardGame playTurnFor: 'Vicky'.
@@ -201,7 +208,7 @@ CroupierTest >> test05WhenSpaceshipPlaysAccelerationCardThenAllSpaceshipIncremen
 		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 2
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 
 	aBoardGame throw: anAccelerationCard from: 'Vicky'.
 
@@ -238,7 +245,7 @@ CroupierTest >> test06WhenSpaceshipTriesToPlayPermanentCardAndItsNotHisTurnThenC
 		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 	aBoardGame playTurnFor: 'Vicky'.
 
 	self
@@ -298,7 +305,7 @@ CroupierTest >> test07WhenSpaceshipPlaysDifferentPermanentCardsThenSpaceshipsMov
 		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 	
 	aBoardGame throw: anOverloadCard from: 'Vicky' to: 'Cami'.
 	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Vicky'.
@@ -339,7 +346,7 @@ CroupierTest >> test08WhenSpaceshipTriesToPlayPermanentCardAndItsNotHisTurnThenC
 		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 
 	self
 		should: [ 
@@ -370,7 +377,7 @@ CroupierTest >> test09WhenASpaceshipPlaysACancellationCardThenAffectedSpaceshipM
 		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 
 	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Vicky'.
 	aBoardGame playTurnFor: 'Vicky'.
@@ -411,7 +418,7 @@ CroupierTest >> test10WhenASpaceshipCancelsAccelerationCardThenAllSpaceshipsAreA
 		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 
 	aBoardGame throw: anOverloadCard from: 'Vicky' to: 'Cami'.
 	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Vicky'.
@@ -450,7 +457,7 @@ CroupierTest >> test11WhenASpaceshipLandsOnACardEffectCellThenAnotherCardIsDeale
 		              (OrderedCollection with: (LoadedDie of: #( 4 2 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 	
 	aBoardGame playTurnFor: 'Vicky'.
 	aBoardGame playTurnFor: 'Cami'.
@@ -480,7 +487,7 @@ CroupierTest >> test12WhenASpaceshipPlaysACancellationCardButThereAreNotPermanen
 		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 
 	aBoardGame playTurnFor: 'Vicky'.
 	aBoardGame playTurnFor: 'Cami'.
@@ -515,7 +522,7 @@ CroupierTest >> test13WhenASpaceshipPlaysCancellationCardThenCardDoesNotExists [
 		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 
 	aBoardGame throw: anOverloadCard from: 'Vicky' to: 'Cami'.
 	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Vicky'.
@@ -551,7 +558,7 @@ CroupierTest >> test14WhenASpaceshipsThrowsARedoAndLastCardASpeedThenSpaceshipsA
 		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 
 
 	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Cami'.
@@ -590,7 +597,7 @@ CroupierTest >> test15WhenASpaceshipsThrowsARedoAndLastCardAOverloadThenSpaceshi
 		              (OrderedCollection with: (LoadedDie of: #( 1 9 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 
 
 
@@ -627,7 +634,7 @@ CroupierTest >> test16WhenASpaceshipsThrowsTwoRedoAndLastCardASpeedThenSpaceship
 		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 
 
 	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Cami'.
@@ -666,7 +673,7 @@ CroupierTest >> test17WhenASpaceshipsThrowsARedoAndLastCardAAccelerationThenSpac
 		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 
 
 
@@ -710,7 +717,7 @@ CroupierTest >> test18WhenASpaceshipsThrowsARedoAndLastCardACancellationThenSpac
 		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 
 
 	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Vicky'.
@@ -751,7 +758,7 @@ CroupierTest >> test19WhenASpaceshipThrowsRepeatCardAndLastCellEffectSpeedUpThen
 		              (OrderedCollection with: (LoadedDie of: #( 9 2 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 
 	aBoardGame playTurnFor: 'Vicky'.
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 4.
@@ -785,7 +792,7 @@ CroupierTest >> test20WhenAspaceshipThrowsRepeatCardAndLastCellEffectAtomicBombT
 		              (OrderedCollection with: (LoadedDie of: #( 7 8 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 
 	aBoardGame playTurnFor: 'Vicky'.
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 8.
@@ -834,7 +841,7 @@ CroupierTest >> test21WhenASpaceshipThrowsRepeatCardAndLastCellEffectMoonWalkThe
 		              rolling:
 		              (OrderedCollection with: (LoadedDie of: #( 7 5 3 )))
 		              on: aBoard
-		              with: 2 managedBy: aCroupier.
+		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
 
 	aBoardGame playTurnFor: 'Vicky'.
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 8.
@@ -877,7 +884,7 @@ CroupierTest >> test22WhenASpaceshipThrowsAnAccelerationCardToAnotherSpaceshipTh
 		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 
 	aBoardGame playTurnFor: 'Vicky'.
 	self
@@ -920,7 +927,7 @@ CroupierTest >> test23WhenASpaceshipThrowsRepeatCardAndLastCellEffectWormHoleThe
 		              rolling:
 		              (OrderedCollection with: (LoadedDie of: #( 9 5 3 )))
 		              on: aBoard
-		              with: 2 managedBy: aCroupier.
+		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
 	aBoardGame playTurnFor: 'Vicky'.
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 10.
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1.
@@ -971,7 +978,7 @@ CroupierTest >> test24WhenASpaceshipThrowsRepeatCardAndDiceWerentThrownThenNoEff
 		              rolling:
 		              (OrderedCollection with: (LoadedDie of: #( 9 5 3 )))
 		              on: aBoard
-		              with: 2 managedBy: aCroupier.
+		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
 	aBoardGame throw: aRepeatCard from: 'Delfi' to: 'Vicky'.
 	aBoardGame playTurnFor: 'Vicky'.
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 10.
@@ -1024,7 +1031,7 @@ CroupierTest >> test25WhenASpaceshipThrowsARepeatCardNotIndicatingSpaceshipAndLa
 		              rolling:
 		              (OrderedCollection with: (LoadedDie of: #( 9 5 5 )))
 		              on: aBoard
-		              with: 2 managedBy: aCroupier.
+		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
 	aBoardGame playTurnFor: 'Vicky'.
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber equals: 10.
 	self assert: (aBoardGame spaceshipPosition: 'Vicky') round equals: 1.
@@ -1067,7 +1074,7 @@ CroupierTest >> test26WhenASpaceshipThrowsSpeedCardNotChoosingAPlayerThenCanNotT
 		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 		
 	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Vicky'.
 	 
@@ -1093,7 +1100,7 @@ CroupierTest >> test27WhenASpaceshipThrowsSpeedCardChoosingASpaceshipCardThenCan
 		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 		
 	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Vicky'.
 
@@ -1120,7 +1127,7 @@ CroupierTest >> test28WhenASpaceshipThrowsOverloadCardChoosingASpaceshipCardThen
 		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 
 	aBoardGame throw: anOverloadCard from: 'Vicky' to: 'Vicky'.
 
@@ -1154,7 +1161,7 @@ CroupierTest >> test29WhenASpaceshipThrowsOverloadCardNotChoosingAPlayerThenCanN
 		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 
 	aBoardGame throw: anOverloadCard from: 'Vicky' to: 'Vicky'.
 		
@@ -1187,7 +1194,7 @@ CroupierTest >> test30WhenASpaceshipThrowsAccelerationCardChoosingASpaceshipCard
 		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 
 	aBoardGame throw: anAccelerationCard  from: 'Vicky'.
 
@@ -1220,7 +1227,7 @@ CroupierTest >> test31WhenASpaceshipThrowsCancellationCardChoosingAPlayerThenCan
 		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 
 	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Vicky'.
 
@@ -1249,7 +1256,7 @@ CroupierTest >> test32WhenASpaceshipThrowsCancellationCardNotChoosingSpaceshipCa
 		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 	self
 		should: [ 
 		aBoardGame throw: aCancellationCard from: 'Vicky' to: 'Vicky' ]
@@ -1277,7 +1284,7 @@ CroupierTest >> test33WhenASpaceshipThrowsRedoCardNotChoosingAPlayerForSpeedCard
 		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 
 	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Vicky'.
 
@@ -1304,7 +1311,7 @@ CroupierTest >> test34WhenASpaceshipThrowsRepeatCardNotChoosingACardThenCanNotTh
 		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 		
 	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Vicky'.	
 	 
@@ -1330,11 +1337,11 @@ CroupierTest >> test35WhenASpaceshipThrowsSpeedCardChoosingACellNumberThenCanNot
 		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 		
 	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Vicky'.
 
-	self should: [ 	aBoardGame throw: aSpeedCard from: 'Vicky' affectingOnCell: 1.  ] raise: Error  withMessage: 'To play card, choose a player' .
+	self should: [ 	aBoardGame throw: aSpeedCard from: 'Vicky' affectingOnCell: aNoCell.  ] raise: Error  withMessage: 'To play card, choose a player' .
 	
 ]
 
@@ -1357,11 +1364,11 @@ CroupierTest >> test36WhenASpaceshipThrowsOverloadCardChoosingACellNumberThenCan
 		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 
 	self
 		should: [ 
-		aBoardGame throw: anOverloadCard from: 'Vicky' affectingOnCell: 1 ]
+		aBoardGame throw: anOverloadCard from: 'Vicky' affectingOnCell: aNoCell ]
 		raise: Error
 		withMessage: 'To play card, choose a player'
 ]
@@ -1385,13 +1392,13 @@ CroupierTest >> test37WhenASpaceshipThrowsAccelerationCardChoosingACellNumberThe
 		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 
 	aBoardGame playTurnFor: 'Vicky'.
 	
 	self
 		should: [ 
-		aBoardGame throw: anAccelerationCard from: 'Cami' affectingOnCell: 1 ]
+		aBoardGame throw: anAccelerationCard from: 'Cami' affectingOnCell: aNoCell ]
 		raise: Error
 		withMessage: 'You cannot choose a cell number for acceleration card.'
 ]
@@ -1416,12 +1423,12 @@ CroupierTest >> test38WhenASpaceshipThrowsCancellationCardChoosingACellNumberThe
 		              (OrderedCollection with: (LoadedDie of: #( 1 2 3 )))
 		              on: aBoard
 		              with: 3
-		              managedBy: aCroupier.
+		              managedBy: aCroupier controlledBy: aPenalizer.
 
 	aBoardGame throw: aSpeedCard from: 'Vicky' to: 'Vicky'.
 
 	self
-		should: [ aBoardGame throw: aCancellationCard from: 'Vicky' affectingOnCell: 1.]
+		should: [ aBoardGame throw: aCancellationCard from: 'Vicky' affectingOnCell: aNoCell.]
 		raise: Error
 		withMessage: 'You have to choose a card'
 ]

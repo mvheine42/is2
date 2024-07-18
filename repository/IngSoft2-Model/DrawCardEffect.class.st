@@ -8,8 +8,11 @@ Class {
 }
 
 { #category : #action }
-DrawCardEffect >> implementOn: aBoardGame [ 
-	aBoardGame dealACardEffect.
+DrawCardEffect >> implementOn: aBoardGame [
+
+	isReversed
+		ifTrue: [ (aBoardGame removeACard) ]
+		ifFalse: [ aBoardGame dealACardEffect ]
 ]
 
 { #category : #initialize }
