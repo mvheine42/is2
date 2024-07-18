@@ -13,11 +13,6 @@ ReversalCard >> acell [
 	^cell.
 ]
 
-{ #category : #action }
-ReversalCard >> canBePlayedIn: aBoardGame for: aSpaceship [
-	aBoardGame validatePermanentPlayFor: aSpaceship.
-]
-
 { #category : #'instance variables' }
 ReversalCard >> id [
 	^cardId.

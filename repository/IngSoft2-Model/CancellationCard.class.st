@@ -7,11 +7,6 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #action }
-CancellationCard >> canBePlayedIn: aBoardGame for: aSpaceship [ 
-	
-]
-
 { #category : #'instance variable' }
 CancellationCard >> id [
 	^cardId 

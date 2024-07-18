@@ -3,8 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'spaceship',
-		'position',
-		'ableToPlay'
+		'position'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -20,27 +19,11 @@ SpaceshipPosition >> >= anObject [
 	^ (position cellNumber >= anObject position cellNumber) and: (position round >= anObject position round).
 ]
 
-{ #category : #'instance variable' }
-SpaceshipPosition >> ableToPlay [
-	^ ableToPlay
-]
-
-{ #category : #action }
-SpaceshipPosition >> disableToPlay [
-	ableToPlay := false.
-]
-
-{ #category : #actions }
-SpaceshipPosition >> enableToPlay [
-	ableToPlay := true.
-]
-
 { #category : #'instance creation' }
 SpaceshipPosition >> initializeNamed: spaceshipName on: aPosition [
 
 	spaceship := spaceshipName.
 	position := aPosition.
-	ableToPlay := true.
 ]
 
 { #category : #'instance variables' }

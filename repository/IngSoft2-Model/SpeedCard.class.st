@@ -7,12 +7,6 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #action }
-SpeedCard >> canBePlayedIn: aBoardGame for: aSpaceship [
-
-	aBoardGame validateSpaceshipTurnFor: aSpaceship.
-]
-
 { #category : #'instance variable' }
 SpeedCard >> id [
 
