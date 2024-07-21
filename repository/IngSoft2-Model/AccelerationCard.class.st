@@ -28,6 +28,21 @@ AccelerationCard >> isCancelledBy: aCroupier [
 ]
 
 { #category : #play }
+AccelerationCard >> isPlayedOn: aBoardGame from: aSpaceship [
+	| aCardPlayers |
+	(aBoardGame validateAbilityToPlayOf: aSpaceship)
+		ifTrue: [ 
+			(aBoardGame validateSpaceshipTurnFor: aSpaceship on: self)
+				ifTrue: [ 
+					aCardPlayers := CardPlayers
+						                of: self
+						                with: aBoardGame spaceships.
+					aBoardGame recordPermanent: aCardPlayers ]
+				ifFalse: [  ] ]
+		ifFalse: [  ]
+]
+
+{ #category : #play }
 AccelerationCard >> isPlayedOn: aBoardGame from: aSpaceship affecting: aCell [ 
 	Error signal: 'You cannot choose a cell for acceleration card'.
 ]
