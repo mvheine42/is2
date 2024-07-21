@@ -7,7 +7,8 @@ Class {
 		'aDeckOfCards',
 		'aCroupier',
 		'anOverloadCard',
-		'aPenalizer'
+		'aPenalizer',
+		'aRedoCard'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -20,9 +21,11 @@ ReversalCardTest >> setUp [
 	aReversalCard := ReversalCard new.
 	aCancellationCard := CancellationCard new.
 	anOverloadCard := OverloadCard new.
+	aRedoCard := RedoCard new.
 	aDeckOfCards := DeckOfCards with: (OrderedCollection
 			                 with: aReversalCard
-			                 with: aCancellationCard).
+			                 with: aCancellationCard
+									with: aRedoCard).
 
 	aCroupier := Croupier handling: aDeckOfCards.
 	aPenalizer := Penalizer new.
@@ -431,7 +434,7 @@ ReversalCardTest >> test10WheASpaceshipThrowsReversalCardAffectingWormHoleEffect
 
 	aBoardGame playTurnFor: 'Vicky'.
 	
-	aBoardGame throw: aCancellationCard from: 'Cami' choosing: aReversalCard.
+	aBoardGame throw: aCancellationCard from: 'Vicky' choosing: aReversalCard.
 	
 	aBoardGame playTurnFor: 'Cami'.
 	
@@ -473,7 +476,7 @@ ReversalCardTest >> test11WheASpaceshipThrowsReversalCardAffectingSpeedUpEffectA
 
 	aBoardGame playTurnFor: 'Vicky'.
 	
-	aBoardGame throw: aCancellationCard from: 'Cami' choosing: aReversalCard.
+	aBoardGame throw: aCancellationCard from: 'Vicky' choosing: aReversalCard.
 	
 	aBoardGame playTurnFor: 'Cami'.
 	
@@ -517,7 +520,7 @@ ReversalCardTest >> test12WheASpaceshipThrowsReversalCardAffectingHyperJumpEffec
 
 	aBoardGame playTurnFor: 'Vicky'.
 	
-	aBoardGame throw: aCancellationCard from: 'Cami' choosing: aReversalCard.
+	aBoardGame throw: aCancellationCard from: 'Vicky' choosing: aReversalCard.
 	
 	aBoardGame playTurnFor: 'Cami'.
 	
@@ -581,7 +584,7 @@ ReversalCardTest >> test13WheASpaceshipThrowsReversalCardAffectingMoonWalkEffect
 
 	aBoardGame
 		throw: aCancellationCard
-		from: 'Cami'
+		from: 'Vicky'
 		choosing: aReversalCard.
 
 	aBoardGame playTurnFor: 'Cami'.
@@ -625,7 +628,7 @@ ReversalCardTest >> test14WheASpaceshipThrowsReversalCardAffectingAtomicBombEffe
 
 	aBoardGame playTurnFor: 'Vicky'.
 	
-	aBoardGame throw: aCancellationCard from: 'Cami' choosing: aReversalCard.
+	aBoardGame throw: aCancellationCard from: 'Vicky' choosing: aReversalCard.
 	
 	aBoardGame playTurnFor: 'Cami'.
 	
@@ -793,4 +796,99 @@ ReversalCardTest >> test18WhenASpaceshipThrowsAReversalCardAffectingDrawCardEffe
 	self
 		assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber
 		equals: 8.
+]
+
+{ #category : #tests }
+ReversalCardTest >> test19WhenASpashipThrowsAReversalCardAndThenOtherSpaceshipThrowsRedoCardAffectingTheSameCellThenSpeedUpCellReverted2Times [
+
+	| spaceships aBoard aBoardGame cellEffects aMoonWalkEffect aSpeedUpCell|
+	
+	aMoonWalkEffect := MoonWalkEffect with: 5.
+	
+	aSpeedUpCell := (Cell on: 10 of: SpeedUpEffect new).
+	
+	cellEffects := OrderedCollection new.
+	cellEffects add: (Cell on: 1 of: NoEffect new).
+	cellEffects add: (Cell on: 2 of: NoEffect new).
+	cellEffects add: (Cell on: 3 of: HyperJumpEffect new).
+	cellEffects add: (Cell on: 4 of: NoEffect new).
+	cellEffects add: (Cell on: 5 of: DrawCardEffect new).
+	cellEffects add: (Cell on: 6 of: WormHoleEffect new).
+	cellEffects add: (Cell on: 7 of: NoEffect new).
+	cellEffects add: (Cell on: 8 of: aMoonWalkEffect).
+	cellEffects add: (Cell on: 9 of: AtomicBombEffect new).
+	cellEffects add: aSpeedUpCell.
+	
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling: (OrderedCollection with: (LoadedDie of: #( 9 9 3 )))
+		              on: aBoard
+		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
+		
+	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aSpeedUpCell.
+
+	aBoardGame playTurnFor: 'Vicky'.
+	aBoardGame throw: aRedoCard from: 'Cami' affectingOnCell: aSpeedUpCell.
+	aBoardGame playTurnFor: 'Cami'.
+	
+	self
+		assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber
+		equals: 6.
+
+	self
+		assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber
+		equals: 4.
+]
+
+{ #category : #tests }
+ReversalCardTest >> test20WhenASpaceshipThrowsAReversalCardAndOtherSpaceshipThrowsRedoCardAffectingOtherCellThenWormHoleCellReverted [
+
+	| spaceships aBoard aBoardGame cellEffects aMoonWalkEffect aSpeedUpCell aWormHoleCell|
+	
+	aMoonWalkEffect := MoonWalkEffect with: 5.
+	
+	aSpeedUpCell := (Cell on: 10 of: SpeedUpEffect new).
+	aWormHoleCell := (Cell on: 6 of: WormHoleEffect new).
+	
+	cellEffects := OrderedCollection new.
+	cellEffects add: (Cell on: 1 of: NoEffect new).
+	cellEffects add: (Cell on: 2 of: NoEffect new).
+	cellEffects add: (Cell on: 3 of: HyperJumpEffect new).
+	cellEffects add: (Cell on: 4 of: NoEffect new).
+	cellEffects add: (Cell on: 5 of: DrawCardEffect new).
+	cellEffects add: aWormHoleCell.
+	cellEffects add: (Cell on: 7 of: NoEffect new).
+	cellEffects add: (Cell on: 8 of: aMoonWalkEffect).
+	cellEffects add: (Cell on: 9 of: AtomicBombEffect new).
+	cellEffects add: aSpeedUpCell.
+	
+	spaceships := OrderedCollection new.
+	spaceships add: 'Vicky'.
+	spaceships add: 'Cami'.
+
+	aBoard := Board of: cellEffects withLenght: (Parsec of: 15).
+	aBoardGame := BoardGame
+		              playedBy: spaceships
+		              rolling: (OrderedCollection with: (LoadedDie of: #( 9 5 3 )))
+		              on: aBoard
+		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
+		
+	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aSpeedUpCell.
+
+	aBoardGame playTurnFor: 'Vicky'.
+	aBoardGame throw: aRedoCard from: 'Cami' affectingOnCell: aWormHoleCell.
+	aBoardGame playTurnFor: 'Cami'.
+	
+	self
+		assert: (aBoardGame spaceshipPosition: 'Vicky') cellNumber
+		equals: 6.
+
+	self
+		assert: (aBoardGame spaceshipPosition: 'Cami') cellNumber
+		equals: 10.
 ]

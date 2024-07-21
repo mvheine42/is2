@@ -28,13 +28,13 @@ AccelerationCard >> isCancelledBecauseOf: aCroupier [
 ]
 
 { #category : #play }
-AccelerationCard >> isPlayedBy: aCroupier from: aCardPlayers affecting: aCell [ 
-	Error signal: 'You cannot choose a cell for acceleration card'.
+AccelerationCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [ 
+	Error signal: 'You cannot choose a card for acceleration card.'
 ]
 
 { #category : #play }
-AccelerationCard >> isPlayedBy: aCroupier from: aSpaceship choosing: aCard [ 
-	Error signal: 'You cannot choose a card for acceleration card.'
+AccelerationCard >> isThrownOn: aBoardGame from: aSpaceship affecting: aCell [ 
+	Error signal: 'You cannot choose a cell for acceleration card'.
 ]
 
 { #category : #play }
@@ -50,15 +50,4 @@ AccelerationCard >> isThrownOn: aBoardGame from: aSpaceship toAll: spaceships [
 		                of: self
 		                with: spaceships.
 	aBoardGame recordPermanent: aCardPlayers.]ifFalse: [  ].
-]
-
-{ #category : #'instance variable' }
-AccelerationCard >> name [
-	'acceleration'.
-]
-
-{ #category : #action }
-AccelerationCard >> playOn: aBoardGame toSelected: aCard [ 
-	
-	Error signal: 'You cannot choose a card for acceleration card.'
 ]

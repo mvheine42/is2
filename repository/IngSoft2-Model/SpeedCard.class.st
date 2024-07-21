@@ -31,12 +31,12 @@ SpeedCard >> isCancelledBecauseOf: aCroupier [
 ]
 
 { #category : #play }
-SpeedCard >> isPlayedBy: aCroupier from: aCardPlayers affecting: aCell [ 
-	Error signal: 'To play card choose a player'.
+SpeedCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [ 
+	Error signal: 'To play card choose a player'
 ]
 
-{ #category : #cancellation }
-SpeedCard >> isPlayedBy: aCroupier from: aSpaceship choosing: aCard [ 
+{ #category : #play }
+SpeedCard >> isThrownOn: aBoardGame from: aSpaceship affecting: aCell [ 
 	Error signal: 'To play card choose a player'.
 ]
 
@@ -53,16 +53,4 @@ SpeedCard >> isThrownOn: aBoardGame from: aSpaceship to: anotherSpaceship [
 { #category : #play }
 SpeedCard >> isThrownOn: aBoardGame from: aSpaceship toAll: spaceships [
 	Error signal: 'To play card choose a player'.
-]
-
-{ #category : #'instance variable' }
-SpeedCard >> name [
-
-	^ 'speed'
-]
-
-{ #category : #action }
-SpeedCard >> playOn: aBoardGame toSelected: aSpaceshipCard [ 
-	
-	Error signal: 'To play card, choose a player'.
 ]

@@ -86,11 +86,6 @@ Croupier >> permanentCardsOf: aSpaceship [
 ]
 
 { #category : #play }
-Croupier >> play: aCard forSelected: choosenCard [ 
-	aCard playOn: self toSelected: choosenCard
-]
-
-{ #category : #play }
 Croupier >> play: aCard from: aString choosing: anotherCard [ 
 	anotherCard isCancelledBecauseOf: self.
 ]

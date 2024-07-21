@@ -31,12 +31,12 @@ OverloadCard >> isCancelledBecauseOf: aCroupier [
 ]
 
 { #category : #play }
-OverloadCard >> isPlayedBy: aCroupier from: aCardPlayers affecting: aCell [ 
+OverloadCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [ 
 	Error signal: 'To play card choose a player'
 ]
 
 { #category : #play }
-OverloadCard >> isPlayedBy: aCroupier from: aSpaceship choosing: aCard [ 
+OverloadCard >> isThrownOn: aBoardGame from: aSpaceship affecting: aCell [ 
 	Error signal: 'To play card choose a player'.
 ]
 
@@ -53,16 +53,4 @@ OverloadCard >> isThrownOn: aBoardGame from: aSpaceship to: anotherSpaceship [
 { #category : #play }
 OverloadCard >> isThrownOn: aBoardGame from: aSpaceship toAll: spaceships [
 	Error signal: 'To play card choose a player'
-]
-
-{ #category : #'instance variables' }
-OverloadCard >> name [
-
-	^'overload'.
-]
-
-{ #category : #action }
-OverloadCard >> playOn: aBoardGame toSelected: aSpaceshipCard [ 
-	
-	Error signal: 'To play card, choose a player' .
 ]

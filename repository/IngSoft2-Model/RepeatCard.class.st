@@ -25,6 +25,11 @@ RepeatCard >> isPlayedBy: aCroupier from: aSpaceship choosing: aCard [
 ]
 
 { #category : #play }
+RepeatCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [ 
+	Error signal: 'To play card choose a player'
+]
+
+{ #category : #play }
 RepeatCard >> isThrownOn: aBoardGame from: aSpaceship to: anotherSpaceship [
 	aBoardGame repeatCardTo: anotherSpaceship.
 ]
@@ -32,15 +37,4 @@ RepeatCard >> isThrownOn: aBoardGame from: aSpaceship to: anotherSpaceship [
 { #category : #play }
 RepeatCard >> isThrownOn: aBoardGame from: aSpaceship toAll: spaceships [
 	aBoardGame repeatCardTo: (spaceships at: 1)
-]
-
-{ #category : #'instance variable' }
-RepeatCard >> name [
-
-	^ 'repeat'
-]
-
-{ #category : #action }
-RepeatCard >> playOn: aCroupier toSelected: aSpeedCard [ 
-	Error signal: 'To play card, choose a player'.
 ]

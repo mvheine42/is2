@@ -308,10 +308,8 @@ BoardGame >> throw: aCard from: aSpaceship [
 
 { #category : #cards }
 BoardGame >> throw: aCard from: aSpaceship affectingOnCell: aCell [
-	| aCardPlayers |
 	croupier take: aCard fromTheHandOf: aSpaceship.
-	aCardPlayers := CardPlayers of: aCard with: spaceships.
-	aCard isPlayedBy: croupier from: aCardPlayers affecting: aCell.
+	aCard isThrownOn: self from: aSpaceship affecting: aCell.
 
 ]
 
@@ -319,11 +317,8 @@ BoardGame >> throw: aCard from: aSpaceship affectingOnCell: aCell [
 BoardGame >> throw: aCard from: aSpaceship choosing: anotherCard [
 	
 	croupier take: aCard fromTheHandOf: aSpaceship.
-	aCard isPlayedBy: croupier from: aSpaceship choosing: anotherCard.
-	"croupier play: aCard on: self from: aSpaceship choosing: anotherCard."
-	"croupier play: aCard forSelected: anotherCard."
-	"anotherCard name = 'reversal' ifTrue: [ self revertReversalEffect: board of: anotherCard]."
-
+	"aCard isPlayedBy: croupier from: aSpaceship choosing: anotherCard."
+	aCard isPlayedOn: self from: aSpaceship choosing: anotherCard.
 ]
 
 { #category : #cards }

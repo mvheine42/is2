@@ -1363,7 +1363,6 @@ CroupierTest >> test36WhenASpaceshipThrowsOverloadCardChoosingACellNumberThenCan
 		              on: aBoard
 		              with: 3
 		              managedBy: aCroupier controlledBy: aPenalizer.
-
 	self
 		should: [ 
 		aBoardGame throw: anOverloadCard from: 'Vicky' affectingOnCell: aNoCell ]
@@ -1426,7 +1425,7 @@ CroupierTest >> test38WhenASpaceshipThrowsCancellationCardChoosingACellNumberThe
 	self
 		should: [ aBoardGame throw: aCancellationCard from: 'Vicky' affectingOnCell: aNoCell.]
 		raise: Error
-		withMessage: 'You have to choose a card'
+		withMessage: 'To play card choose a card'
 ]
 
 { #category : #tests }
