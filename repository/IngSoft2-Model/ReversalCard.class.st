@@ -61,8 +61,3 @@ ReversalCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [
 ReversalCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
 	Error signal: 'To play Reversal Card, please choose a cell'
 ]
-
-{ #category : #play }
-ReversalCard >> isPlayedOn: aBoardGame from: aSpaceship toAll: spaceships [
-	Error signal: 'To play Reversal Card, choose a cell'
-]
