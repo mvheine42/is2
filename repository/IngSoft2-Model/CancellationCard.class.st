@@ -23,6 +23,11 @@ CancellationCard >> isCancelledBy: aCroupier [
 ]
 
 { #category : #play }
+CancellationCard >> isPlayedOn: aBoardGame from: aSpaceship [
+	Error signal: 'To play card choose a card'
+]
+
+{ #category : #play }
 CancellationCard >> isPlayedOn: aBoardGame from: aSpaceship affecting: aCell [ 
 	Error signal: 'To play card choose a card'.
 ]
@@ -35,9 +40,4 @@ CancellationCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [
 { #category : #play }
 CancellationCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [ 
 	Error signal: 'You have to choose a card.'
-]
-
-{ #category : #play }
-CancellationCard >> isPlayedOn: aBoardGame from: aSpaceship toAll: spaceships [
-	Error signal: 'To play card choose a card'
 ]

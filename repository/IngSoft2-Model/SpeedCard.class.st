@@ -31,6 +31,11 @@ SpeedCard >> isCancelledBy: aCroupier [
 ]
 
 { #category : #play }
+SpeedCard >> isPlayedOn: aBoardGame from: aSpaceship [
+	Error signal: 'To play card choose a player'.
+]
+
+{ #category : #play }
 SpeedCard >> isPlayedOn: aBoardGame from: aSpaceship affecting: aCell [ 
 	Error signal: 'To play card choose a player'.
 ]
@@ -42,15 +47,16 @@ SpeedCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [
 
 { #category : #play }
 SpeedCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
-	|aCardPlayers|
-	(aBoardGame validateSpaceshipTurnFor: aSpaceship)ifTrue:[
-	aCardPlayers := CardPlayers
-		                of: self
-		                with: (OrderedCollection with: anotherSpaceship).
-	aBoardGame recordPermanent: aCardPlayers.]ifFalse: [  ].
-]
-
-{ #category : #play }
-SpeedCard >> isPlayedOn: aBoardGame from: aSpaceship toAll: spaceships [
-	Error signal: 'To play card choose a player'.
+	| aCardPlayers |
+	aBoardGame validateSpaceshipExists: anotherSpaceship.
+	(aBoardGame validateAbilityToPlayOf: aSpaceship)
+		ifTrue: [ 
+			(aBoardGame validateSpaceshipTurnFor: aSpaceship on: self)
+				ifTrue: [ 
+					aCardPlayers := CardPlayers
+						                of: self
+						                with: (OrderedCollection with: anotherSpaceship).
+					aBoardGame recordPermanent: aCardPlayers ]
+				ifFalse: [  ] ]
+		ifFalse: [  ].
 ]

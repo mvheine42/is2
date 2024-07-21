@@ -300,36 +300,6 @@ BoardGame >> spaceshipsInitialization [
 		size := size + 1 ]
 ]
 
-{ #category : #cards }
-BoardGame >> throw: aCard from: aSpaceship [
-	croupier take: aCard fromTheHandOf: aSpaceship.
-	(penalizer validatesTurnFor: aSpaceship)ifTrue:
-	[aCard isPlayedOn: self from: aSpaceship toAll: (self spaceships)]ifFalse:[]
-]
-
-{ #category : #cards }
-BoardGame >> throw: aCard from: aSpaceship affectingOnCell: aCell [
-	croupier take: aCard fromTheHandOf: aSpaceship.
-	aCard isPlayedOn: self from: aSpaceship affecting: aCell.
-
-]
-
-{ #category : #cards }
-BoardGame >> throw: aCard from: aSpaceship choosing: anotherCard [
-	
-	croupier take: aCard fromTheHandOf: aSpaceship.
-	aCard isPlayedOn: self from: aSpaceship choosing: anotherCard.
-]
-
-{ #category : #cards }
-BoardGame >> throw: aCard from: aSpaceship to: anotherSpaceship [
-	self validateSpaceshipExists: anotherSpaceship.
-	croupier take: aCard fromTheHandOf: aSpaceship.
-	(penalizer validatesTurnFor: aSpaceship)ifTrue:
-	[ aCard isPlayedOn: self from: aSpaceship to: anotherSpaceship.]ifFalse:[]
-
-]
-
 { #category : #action }
 BoardGame >> throwDice [
 
@@ -374,6 +344,16 @@ BoardGame >> validateSpaceshipExists: aSpaceship [
 { #category : #validation }
 BoardGame >> validateSpaceshipTurnFor: aSpaceship [
 
+	(spaceships at: turn) = aSpaceship
+		ifFalse: [ 
+			penalizer move: aSpaceship backwardsOn: self.
+			^ false ]
+		ifTrue: [ ^ true ]
+]
+
+{ #category : #play }
+BoardGame >> validateSpaceshipTurnFor: aSpaceship on: aCard [ 
+	croupier take: aCard fromTheHandOf: aSpaceship.
 	(spaceships at: turn) = aSpaceship
 		ifFalse: [ 
 			penalizer move: aSpaceship backwardsOn: self.

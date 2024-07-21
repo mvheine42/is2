@@ -72,8 +72,7 @@ ReversalCardTest >> test01WhenASpaceshipThrowsReversalCardOnSpeedUpCellThenSpace
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 9 9 3 )))
 		              on: aBoard
 		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
-		
-	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aSpeedUpCell.
+	aReversalCard isPlayedOn: aBoardGame from: 'Vicky' affecting: aSpeedUpCell.
 
 	aBoardGame playTurnFor: 'Vicky'.
 	aBoardGame playTurnFor: 'Cami'.
@@ -118,12 +117,10 @@ ReversalCardTest >> test02WhenASpaceshipThrowsReversalCardOnNoEffectCellAndOnSpe
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 3 9 3 )))
 		              on: aBoard
 		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
-		
-	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aNoEffectCell.
+	aReversalCard isPlayedOn: aBoardGame from: 'Vicky' affecting: aNoEffectCell.
 
 	aBoardGame playTurnFor: 'Vicky'.
-	
-	aBoardGame throw: aReversalCard from: 'Cami' affectingOnCell: aSpeedUpCell.
+	aReversalCard isPlayedOn: aBoardGame from: 'Cami' affecting: aSpeedUpCell.
 	aBoardGame playTurnFor: 'Cami'.
 	
 	self
@@ -165,8 +162,7 @@ ReversalCardTest >> test03WhenASpaceshipThrowsAReversalCardAffectingWormHoleEffe
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 5 9 3 )))
 		              on: aBoard
 		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
-		
-	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aWormHoleCell.
+	aReversalCard isPlayedOn: aBoardGame from: 'Vicky' affecting: aWormHoleCell.
 
 	aBoardGame playTurnFor: 'Vicky'.
 	
@@ -204,8 +200,7 @@ ReversalCardTest >> test04ASpaceshipThrowsAReservalCardAffectingHyperJumpCellThe
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 6 3 3 )))
 		              on: aBoard
 		              with: 3 managedBy: aCroupier controlledBy: aPenalizer.
-		
-	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aHyperJumpCell.
+	aReversalCard isPlayedOn: aBoardGame from: 'Vicky' affecting: aHyperJumpCell.
 
 	aBoardGame playTurnFor: 'Vicky'.
 	
@@ -252,8 +247,7 @@ ReversalCardTest >> test06WhenASpaceshipThrowsAReversalCardAffectingMoonWalkEffe
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 1 7 3 )))
 		              on: aBoard
 		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
-		
-	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aMoonWalkCell .
+	aReversalCard isPlayedOn: aBoardGame from: 'Vicky' affecting: aMoonWalkCell.	
 
 	aBoardGame playTurnFor: 'Vicky'.
 	
@@ -299,8 +293,7 @@ ReversalCardTest >> test07WhenASpaceshipThrowsReversalCardAffectingAtomicBombEff
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 8 7 3 )))
 		              on: aBoard
 		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
-		
-	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: anAtomicBombCell.
+	aReversalCard isPlayedOn: aBoardGame from: 'Vicky' affecting: anAtomicBombCell.
 
 	aBoardGame playTurnFor: 'Vicky'.
 	
@@ -346,8 +339,7 @@ ReversalCardTest >> test08WhenASpaceshipThrowsReversalCardAffectingDrawCardEffec
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 4 7 3 )))
 		              on: aBoard
 		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
-		
-	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aDrawCardCell.
+	aReversalCard isPlayedOn: aBoardGame from: 'Vicky' affecting: aDrawCardCell.
 
 	aBoardGame playTurnFor: 'Vicky'.
 	
@@ -387,12 +379,10 @@ ReversalCardTest >> test09WhenASpaceshipThrowsReversalCardOnSpeedUpEffectAndOthe
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 4 4 3 )))
 		              on: aBoard
 		              with: 4 managedBy: aCroupier controlledBy: aPenalizer.
-		
-	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aSpeedUpCell.
+	aReversalCard isPlayedOn: aBoardGame from: 'Vicky' affecting: aSpeedUpCell.
 
 	aBoardGame playTurnFor: 'Vicky'.
-	
-	aBoardGame throw: aReversalCard from: 'Cami' affectingOnCell: aSpeedUpCell.
+	aReversalCard isPlayedOn: aBoardGame from: 'Cami' affecting: aSpeedUpCell.
 	
 	aBoardGame playTurnFor: 'Cami'.
 	
@@ -429,12 +419,10 @@ ReversalCardTest >> test10WheASpaceshipThrowsReversalCardAffectingWormHoleEffect
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 4 4 3 )))
 		              on: aBoard
 		              with: 4 managedBy: aCroupier controlledBy: aPenalizer.
-		
-	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aWormHoleCell.
+	aReversalCard isPlayedOn: aBoardGame from: 'Vicky' affecting: aWormHoleCell.
 
 	aBoardGame playTurnFor: 'Vicky'.
-	
-	aBoardGame throw: aCancellationCard from: 'Vicky' choosing: aReversalCard.
+	aCancellationCard isPlayedOn: aBoardGame from: 'Vicky' choosing: aReversalCard.
 	
 	aBoardGame playTurnFor: 'Cami'.
 	
@@ -471,12 +459,10 @@ ReversalCardTest >> test11WheASpaceshipThrowsReversalCardAffectingSpeedUpEffectA
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 4 4 3 )))
 		              on: aBoard
 		              with: 4 managedBy: aCroupier controlledBy: aPenalizer.
-		
-	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aSpeedUpCell.
+	aReversalCard isPlayedOn: aBoardGame from: 'Vicky' affecting: aSpeedUpCell.
 
 	aBoardGame playTurnFor: 'Vicky'.
-	
-	aBoardGame throw: aCancellationCard from: 'Vicky' choosing: aReversalCard.
+	aCancellationCard isPlayedOn: aBoardGame from: 'Vicky' choosing: aReversalCard.
 	
 	aBoardGame playTurnFor: 'Cami'.
 	
@@ -515,12 +501,10 @@ ReversalCardTest >> test12WheASpaceshipThrowsReversalCardAffectingHyperJumpEffec
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 4 4 3 )))
 		              on: aBoard
 		              with: 4 managedBy: aCroupier controlledBy: aPenalizer.
-		
-	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aHyperJumpCell.
+	aReversalCard isPlayedOn: aBoardGame from: 'Vicky' affecting: aHyperJumpCell.
 
 	aBoardGame playTurnFor: 'Vicky'.
-	
-	aBoardGame throw: aCancellationCard from: 'Vicky' choosing: aReversalCard.
+	aCancellationCard isPlayedOn: aBoardGame from: 'Vicky' choosing: aReversalCard.
 	
 	aBoardGame playTurnFor: 'Cami'.
 	
@@ -567,8 +551,7 @@ ReversalCardTest >> test13WheASpaceshipThrowsReversalCardAffectingMoonWalkEffect
 		              on: aBoard
 		              with: 4
 		              managedBy: aCroupier controlledBy: aPenalizer.
-
-	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aMoonWalkCell.
+	aReversalCard isPlayedOn: aBoardGame from: 'Vicky' affecting: aMoonWalkCell.
 
 	aBoardGame playTurnFor: 'Vicky'.
 
@@ -581,11 +564,7 @@ ReversalCardTest >> test13WheASpaceshipThrowsReversalCardAffectingMoonWalkEffect
 	self
 		assert: (aBoardGame spaceshipPosition: 'Cami') round
 		equals: 2.
-
-	aBoardGame
-		throw: aCancellationCard
-		from: 'Vicky'
-		choosing: aReversalCard.
+	aCancellationCard isPlayedOn: aBoardGame from: 'Vicky' choosing: aReversalCard.
 
 	aBoardGame playTurnFor: 'Cami'.
 	
@@ -623,12 +602,10 @@ ReversalCardTest >> test14WheASpaceshipThrowsReversalCardAffectingAtomicBombEffe
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 4 4 3 )))
 		              on: aBoard
 		              with: 4 managedBy: aCroupier controlledBy: aPenalizer.
-		
-	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: anAtomicBombCell.
+	aReversalCard isPlayedOn: aBoardGame from: 'Vicky' affecting: anAtomicBombCell.
 
 	aBoardGame playTurnFor: 'Vicky'.
-	
-	aBoardGame throw: aCancellationCard from: 'Vicky' choosing: aReversalCard.
+	aCancellationCard isPlayedOn: aBoardGame from: 'Vicky' choosing: aReversalCard.
 	
 	aBoardGame playTurnFor: 'Cami'.
 	
@@ -671,7 +648,7 @@ ReversalCardTest >> test15WhenASpaceshipThrowsAReversalCardChoosingAnotherSpache
 		              with: 2
 		              managedBy: aCroupier controlledBy: aPenalizer.
 	self
-		should: [ aBoardGame throw: aReversalCard from: 'Vicky' to: 'Vicky' ]
+		should: [ aReversalCard isPlayedOn: aBoardGame from: 'Vicky' to: 'Vicky'.]
 		raise: Error
 		withMessage: 'To play Reversal Card, please choose a cell'
 ]
@@ -706,7 +683,7 @@ ReversalCardTest >> test16WhenASpaceshipThrowsReversalCardChoosingACardNumberThe
 		              with: 2
 		              managedBy: aCroupier controlledBy: aPenalizer.
 	self
-		should: [ aBoardGame throw: aReversalCard from: 'Vicky' choosing: anOverloadCard]
+		should: [ aReversalCard isPlayedOn: aBoardGame from: 'Vicky' choosing: anOverloadCard.]
 		raise: Error
 		withMessage: 'To play reversal card, please choose a cell'
 ]
@@ -741,7 +718,7 @@ ReversalCardTest >> test17WhenASpaceshipThrowsReversalCardNotChoosingACellNumber
 		              with: 2
 		              managedBy: aCroupier controlledBy: aPenalizer.
 	self
-		should: [ aBoardGame throw: aReversalCard from: 'Vicky'. ]
+		should: [ aReversalCard isPlayedOn: aBoardGame from: 'Vicky'.]
 		raise: Error
 		withMessage: 'To play Reversal Card, choose a cell'
 
@@ -780,12 +757,10 @@ ReversalCardTest >> test18WhenASpaceshipThrowsAReversalCardAffectingDrawCardEffe
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 4 7 3 )))
 		              on: aBoard
 		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
-	
-	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aDrawCardCell.
+	aReversalCard isPlayedOn: aBoardGame from: 'Vicky' affecting: aDrawCardCell.
 
 	aBoardGame playTurnFor: 'Vicky'.
-	
-	aBoardGame throw: aReversalCard from: 'Cami' affectingOnCell: anAtomicBombCell.
+	aReversalCard isPlayedOn: aBoardGame from: 'Cami' affecting: anAtomicBombCell.
 	
 	aBoardGame playTurnFor: 'Cami'.
 	
@@ -829,11 +804,10 @@ ReversalCardTest >> test19WhenASpashipThrowsAReversalCardAndThenOtherSpaceshipTh
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 9 9 3 )))
 		              on: aBoard
 		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
-		
-	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aSpeedUpCell.
+	aReversalCard isPlayedOn: aBoardGame from: 'Vicky' affecting: aSpeedUpCell.
 
 	aBoardGame playTurnFor: 'Vicky'.
-	aBoardGame throw: aRedoCard from: 'Cami' affectingOnCell: aSpeedUpCell.
+	aRedoCard isPlayedOn: aBoardGame from: 'Cami' affecting: aSpeedUpCell.
 	aBoardGame playTurnFor: 'Cami'.
 	
 	self
@@ -877,11 +851,10 @@ ReversalCardTest >> test20WhenASpaceshipThrowsAReversalCardAndOtherSpaceshipThro
 		              rolling: (OrderedCollection with: (LoadedDie of: #( 9 5 3 )))
 		              on: aBoard
 		              with: 2 managedBy: aCroupier controlledBy: aPenalizer.
-		
-	aBoardGame throw: aReversalCard from: 'Vicky' affectingOnCell: aSpeedUpCell.
+	aReversalCard isPlayedOn: aBoardGame from: 'Vicky' affecting: aSpeedUpCell.
 
 	aBoardGame playTurnFor: 'Vicky'.
-	aBoardGame throw: aRedoCard from: 'Cami' affectingOnCell: aWormHoleCell.
+	aRedoCard isPlayedOn: aBoardGame from: 'Cami' affecting: aWormHoleCell.
 	aBoardGame playTurnFor: 'Cami'.
 	
 	self
