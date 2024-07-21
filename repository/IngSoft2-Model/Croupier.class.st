@@ -33,7 +33,7 @@ Croupier >> cancellationCardAffectingCell: aCard [
 
 { #category : #action }
 Croupier >> cancellationCardTo: aCard [
-	aCard isCancelledBecauseOf: self.
+	aCard isCancelledBy: self.
 ]
 
 { #category : #action }

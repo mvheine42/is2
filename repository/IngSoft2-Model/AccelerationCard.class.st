@@ -23,8 +23,13 @@ AccelerationCard >> implementOn: aBoardGame [
 ]
 
 { #category : #cancellation }
-AccelerationCard >> isCancelledBecauseOf: aCroupier [ 
+AccelerationCard >> isCancelledBy: aCroupier [ 
 	aCroupier cancellationCardAffectingCardOn: self.
+]
+
+{ #category : #play }
+AccelerationCard >> isPlayedOn: aBoardGame from: aSpaceship affecting: aCell [ 
+	Error signal: 'You cannot choose a cell for acceleration card'.
 ]
 
 { #category : #play }
@@ -33,17 +38,12 @@ AccelerationCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [
 ]
 
 { #category : #play }
-AccelerationCard >> isThrownOn: aBoardGame from: aSpaceship affecting: aCell [ 
-	Error signal: 'You cannot choose a cell for acceleration card'.
-]
-
-{ #category : #play }
-AccelerationCard >> isThrownOn: aBoardGame from: aSpaceship to: anotherSpaceship [
+AccelerationCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
 	Error signal: 'You cannot choose a player for acceleration card.'
 ]
 
 { #category : #play }
-AccelerationCard >> isThrownOn: aBoardGame from: aSpaceship toAll: spaceships [ 
+AccelerationCard >> isPlayedOn: aBoardGame from: aSpaceship toAll: spaceships [ 
 	|aCardPlayers|
 	(aBoardGame validateSpaceshipTurnFor: aSpaceship)ifTrue:[
 	aCardPlayers := CardPlayers

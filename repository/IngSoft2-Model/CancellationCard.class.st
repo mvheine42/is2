@@ -18,8 +18,13 @@ CancellationCard >> id: number [
 ]
 
 { #category : #cancellation }
-CancellationCard >> isCancelledBecauseOf: aCroupier [ 
+CancellationCard >> isCancelledBy: aCroupier [ 
 	Error signal: 'To play card choose permanent card'.
+]
+
+{ #category : #play }
+CancellationCard >> isPlayedOn: aBoardGame from: aSpaceship affecting: aCell [ 
+	Error signal: 'To play card choose a card'.
 ]
 
 { #category : #play }
@@ -28,16 +33,11 @@ CancellationCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [
 ]
 
 { #category : #play }
-CancellationCard >> isThrownOn: aBoardGame from: aSpaceship affecting: aCell [ 
-	Error signal: 'To play card choose a card'.
-]
-
-{ #category : #play }
-CancellationCard >> isThrownOn: aBoardGame from: aSpaceship to: anotherSpaceship [ 
+CancellationCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [ 
 	Error signal: 'You have to choose a card.'
 ]
 
 { #category : #play }
-CancellationCard >> isThrownOn: aBoardGame from: aSpaceship toAll: spaceships [
+CancellationCard >> isPlayedOn: aBoardGame from: aSpaceship toAll: spaceships [
 	Error signal: 'To play card choose a card'
 ]

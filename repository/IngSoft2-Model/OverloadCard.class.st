@@ -26,8 +26,13 @@ OverloadCard >> implementOn: aBoardGame [
 ]
 
 { #category : #testing }
-OverloadCard >> isCancelledBecauseOf: aCroupier [ 
+OverloadCard >> isCancelledBy: aCroupier [ 
 	aCroupier cancellationCardAffectingCardOn: self.
+]
+
+{ #category : #play }
+OverloadCard >> isPlayedOn: aBoardGame from: aSpaceship affecting: aCell [ 
+	Error signal: 'To play card choose a player'.
 ]
 
 { #category : #play }
@@ -36,12 +41,7 @@ OverloadCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [
 ]
 
 { #category : #play }
-OverloadCard >> isThrownOn: aBoardGame from: aSpaceship affecting: aCell [ 
-	Error signal: 'To play card choose a player'.
-]
-
-{ #category : #play }
-OverloadCard >> isThrownOn: aBoardGame from: aSpaceship to: anotherSpaceship [
+OverloadCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
 	|aCardPlayers|
 	(aBoardGame validateSpaceshipTurnFor: aSpaceship)ifTrue:[
 	aCardPlayers := CardPlayers
@@ -51,6 +51,6 @@ OverloadCard >> isThrownOn: aBoardGame from: aSpaceship to: anotherSpaceship [
 ]
 
 { #category : #play }
-OverloadCard >> isThrownOn: aBoardGame from: aSpaceship toAll: spaceships [
+OverloadCard >> isPlayedOn: aBoardGame from: aSpaceship toAll: spaceships [
 	Error signal: 'To play card choose a player'
 ]

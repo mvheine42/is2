@@ -20,21 +20,21 @@ RedoCard >> id: number [
 ]
 
 { #category : #play }
+RedoCard >> isPlayedOn: aBoardGame from: aCardPlayers affecting: aCell [ 
+	(aBoardGame lastCardPlayed) isPlayedOn: aBoardGame from: aCardPlayers affecting: aCell .
+]
+
+{ #category : #play }
 RedoCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [ 
 	(aBoardGame lastCardPlayed) isPlayedOn: aBoardGame from: aSpaceship choosing: aCard
 ]
 
 { #category : #play }
-RedoCard >> isThrownOn: aBoardGame from: aCardPlayers affecting: aCell [ 
-	(aBoardGame lastCardPlayed) isThrownOn: aBoardGame from: aCardPlayers affecting: aCell .
+RedoCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
+	(aBoardGame lastCardPlayed) isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship.
 ]
 
 { #category : #play }
-RedoCard >> isThrownOn: aBoardGame from: aSpaceship to: anotherSpaceship [
-	(aBoardGame lastCardPlayed) isThrownOn: aBoardGame from: aSpaceship to: anotherSpaceship.
-]
-
-{ #category : #play }
-RedoCard >> isThrownOn: aBoardGame from: aSpaceship toAll: spaceships [ 
-	(aBoardGame lastCardPlayed) isThrownOn: aBoardGame from: aSpaceship toAll: spaceships .
+RedoCard >> isPlayedOn: aBoardGame from: aSpaceship toAll: spaceships [ 
+	(aBoardGame lastCardPlayed) isPlayedOn: aBoardGame from: aSpaceship toAll: spaceships.
 ]

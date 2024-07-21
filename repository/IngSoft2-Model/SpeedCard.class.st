@@ -26,8 +26,13 @@ SpeedCard >> implementOn: aBoardGame [
 ]
 
 { #category : #cancellation }
-SpeedCard >> isCancelledBecauseOf: aCroupier [ 
+SpeedCard >> isCancelledBy: aCroupier [ 
 	aCroupier cancellationCardAffectingCardOn: self .
+]
+
+{ #category : #play }
+SpeedCard >> isPlayedOn: aBoardGame from: aSpaceship affecting: aCell [ 
+	Error signal: 'To play card choose a player'.
 ]
 
 { #category : #play }
@@ -36,12 +41,7 @@ SpeedCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [
 ]
 
 { #category : #play }
-SpeedCard >> isThrownOn: aBoardGame from: aSpaceship affecting: aCell [ 
-	Error signal: 'To play card choose a player'.
-]
-
-{ #category : #play }
-SpeedCard >> isThrownOn: aBoardGame from: aSpaceship to: anotherSpaceship [
+SpeedCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
 	|aCardPlayers|
 	(aBoardGame validateSpaceshipTurnFor: aSpaceship)ifTrue:[
 	aCardPlayers := CardPlayers
@@ -51,6 +51,6 @@ SpeedCard >> isThrownOn: aBoardGame from: aSpaceship to: anotherSpaceship [
 ]
 
 { #category : #play }
-SpeedCard >> isThrownOn: aBoardGame from: aSpaceship toAll: spaceships [
+SpeedCard >> isPlayedOn: aBoardGame from: aSpaceship toAll: spaceships [
 	Error signal: 'To play card choose a player'.
 ]

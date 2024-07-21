@@ -95,6 +95,7 @@ BoardGame >> assingPlayingSpaceshipPosition [
 
 { #category : #play }
 BoardGame >> cancellationCardTo: aCard [ 
+	"aCard isCancelledBy: croupier."
 	croupier cancellationCardTo: aCard.
 ]
 
@@ -303,13 +304,13 @@ BoardGame >> spaceshipsInitialization [
 BoardGame >> throw: aCard from: aSpaceship [
 	croupier take: aCard fromTheHandOf: aSpaceship.
 	(penalizer validatesTurnFor: aSpaceship)ifTrue:
-	[aCard isThrownOn: self from: aSpaceship toAll: (self spaceships)]ifFalse:[]
+	[aCard isPlayedOn: self from: aSpaceship toAll: (self spaceships)]ifFalse:[]
 ]
 
 { #category : #cards }
 BoardGame >> throw: aCard from: aSpaceship affectingOnCell: aCell [
 	croupier take: aCard fromTheHandOf: aSpaceship.
-	aCard isThrownOn: self from: aSpaceship affecting: aCell.
+	aCard isPlayedOn: self from: aSpaceship affecting: aCell.
 
 ]
 
@@ -317,17 +318,15 @@ BoardGame >> throw: aCard from: aSpaceship affectingOnCell: aCell [
 BoardGame >> throw: aCard from: aSpaceship choosing: anotherCard [
 	
 	croupier take: aCard fromTheHandOf: aSpaceship.
-	"aCard isPlayedBy: croupier from: aSpaceship choosing: anotherCard."
 	aCard isPlayedOn: self from: aSpaceship choosing: anotherCard.
 ]
 
 { #category : #cards }
 BoardGame >> throw: aCard from: aSpaceship to: anotherSpaceship [
-	| aCardPlayers |
 	self validateSpaceshipExists: anotherSpaceship.
 	croupier take: aCard fromTheHandOf: aSpaceship.
 	(penalizer validatesTurnFor: aSpaceship)ifTrue:
-	[aCard isThrownOn: self from: aSpaceship to: anotherSpaceship.]ifFalse:[]
+	[ aCard isPlayedOn: self from: aSpaceship to: anotherSpaceship.]ifFalse:[]
 
 ]
 

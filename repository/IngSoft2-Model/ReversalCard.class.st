@@ -29,17 +29,12 @@ ReversalCard >> implementOn: aCroupier [
 ]
 
 { #category : #cancellation }
-ReversalCard >> isCancelledBecauseOf: aCroupier [ 
+ReversalCard >> isCancelledBy: aCroupier [ 
 	aCroupier cancellationCardAffectingCell: self.
 ]
 
 { #category : #play }
-ReversalCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [ 
-	Error signal: 'To play reversal card, please choose a cell'
-]
-
-{ #category : #play }
-ReversalCard >> isThrownOn: aBoardGame from: aSpaceship affecting: aCell [ 
+ReversalCard >> isPlayedOn: aBoardGame from: aSpaceship affecting: aCell [ 
 	|aCardPlayers|
 	(aBoardGame validateSpaceshipTurnFor: aSpaceship)ifTrue:[
 		aCell effect reverseEffect.
@@ -51,11 +46,16 @@ ReversalCard >> isThrownOn: aBoardGame from: aSpaceship affecting: aCell [
 ]
 
 { #category : #play }
-ReversalCard >> isThrownOn: aBoardGame from: aSpaceship to: anotherSpaceship [
+ReversalCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [ 
+	Error signal: 'To play reversal card, please choose a cell'
+]
+
+{ #category : #play }
+ReversalCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
 	Error signal: 'To play Reversal Card, please choose a cell'
 ]
 
 { #category : #play }
-ReversalCard >> isThrownOn: aBoardGame from: aSpaceship toAll: spaceships [
+ReversalCard >> isPlayedOn: aBoardGame from: aSpaceship toAll: spaceships [
 	Error signal: 'To play Reversal Card, choose a cell'
 ]

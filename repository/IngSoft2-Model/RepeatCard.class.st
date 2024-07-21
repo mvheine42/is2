@@ -25,11 +25,11 @@ RepeatCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [
 ]
 
 { #category : #play }
-RepeatCard >> isThrownOn: aBoardGame from: aSpaceship to: anotherSpaceship [
+RepeatCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
 	aBoardGame repeatCardTo: anotherSpaceship.
 ]
 
 { #category : #play }
-RepeatCard >> isThrownOn: aBoardGame from: aSpaceship toAll: spaceships [
+RepeatCard >> isPlayedOn: aBoardGame from: aSpaceship toAll: spaceships [
 	aBoardGame repeatCardTo: (spaceships at: 1)
 ]
