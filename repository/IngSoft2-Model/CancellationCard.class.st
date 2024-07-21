@@ -41,8 +41,3 @@ CancellationCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [
 CancellationCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [ 
 	Error signal: 'You have to choose a card.'
 ]
-
-{ #category : #play }
-CancellationCard >> isPlayedOn: aBoardGame from: aSpaceship toAll: spaceships [
-	Error signal: 'To play card choose a card'
-]

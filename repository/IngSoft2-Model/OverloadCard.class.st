@@ -54,8 +54,3 @@ OverloadCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
 		                with: (OrderedCollection with: anotherSpaceship).
 	aBoardGame recordPermanent: aCardPlayers.]ifFalse: [  ].
 ]
-
-{ #category : #play }
-OverloadCard >> isPlayedOn: aBoardGame from: aSpaceship toAll: spaceships [
-	Error signal: 'To play card choose a player'
-]

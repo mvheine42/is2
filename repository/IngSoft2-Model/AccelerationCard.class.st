@@ -56,13 +56,3 @@ AccelerationCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [
 AccelerationCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
 	Error signal: 'You cannot choose a player for acceleration card.'
 ]
-
-{ #category : #play }
-AccelerationCard >> isPlayedOn: aBoardGame from: aSpaceship toAll: spaceships [ 
-	|aCardPlayers|
-	(aBoardGame validateSpaceshipTurnFor: aSpaceship)ifTrue:[
-	aCardPlayers := CardPlayers
-		                of: self
-		                with: spaceships.
-	aBoardGame recordPermanent: aCardPlayers.]ifFalse: [  ].
-]

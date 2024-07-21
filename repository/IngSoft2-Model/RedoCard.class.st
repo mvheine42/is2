@@ -67,8 +67,3 @@ RedoCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
 				ifFalse: [  ] ]
 		ifFalse: [  ].
 ]
-
-{ #category : #play }
-RedoCard >> isPlayedOn: aBoardGame from: aSpaceship toAll: spaceships [ 
-	(aBoardGame lastCardPlayed) isPlayedOn: aBoardGame from: aSpaceship toAll: spaceships.
-]

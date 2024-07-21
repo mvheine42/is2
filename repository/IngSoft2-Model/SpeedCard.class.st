@@ -60,8 +60,3 @@ SpeedCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
 				ifFalse: [  ] ]
 		ifFalse: [  ].
 ]
-
-{ #category : #play }
-SpeedCard >> isPlayedOn: aBoardGame from: aSpaceship toAll: spaceships [
-	Error signal: 'To play card choose a player'.
-]
