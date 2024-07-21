@@ -93,6 +93,11 @@ BoardGame >> assingPlayingSpaceshipPosition [
 		                            == (spaceships at: turn) ]
 ]
 
+{ #category : #play }
+BoardGame >> cancellationCardTo: aCard [ 
+	croupier cancellationCardTo: aCard.
+]
+
 { #category : #effects }
 BoardGame >> dealACardEffect [
 	croupier dealACardTo: playingSpaceshipPosition spaceships.
@@ -113,6 +118,11 @@ BoardGame >> initializePlayedBy: manySpaceships rolling: manyDice on: aBoard win
 	croupier dealCardsWhenGameIsStartedTo: spaceships.
 	penalizer enableToPlayAll: spaceships.
 	self spaceshipsInitialization.
+]
+
+{ #category : #card }
+BoardGame >> lastCardPlayed [
+	^(croupier lastCardPlayed).
 ]
 
 { #category : #action }
@@ -230,6 +240,11 @@ BoardGame >> ranking [
 
 ]
 
+{ #category : #permanent }
+BoardGame >> recordPermanent: aCardPlayers [ 
+	croupier recordPermanent: aCardPlayers.
+]
+
 { #category : #action }
 BoardGame >> relocatesSpaceshipPositionTo: aNumber [
 
@@ -254,12 +269,6 @@ BoardGame >> repeatCardTo: aSpaceship [
 	lastCellEffect implementOn: self
 ]
 
-{ #category : #reverse }
-BoardGame >> revertReversalEffect: aBoard of: aReversalCard [ 
-	
-	(aReversalCard acell effect) reverseEffect.
-]
-
 { #category : #action }
 BoardGame >> skipTurn [
 	self turn.
@@ -271,6 +280,11 @@ BoardGame >> spaceshipPosition: aName [
 
 	^ (spaceshipPositions detect: [ :spaceshipPosition | 
 		   spaceshipPosition spaceships == aName ]) position
+]
+
+{ #category : #'instance variables' }
+BoardGame >> spaceships [
+	^ spaceships
 ]
 
 { #category : #initialization }
@@ -287,12 +301,9 @@ BoardGame >> spaceshipsInitialization [
 
 { #category : #cards }
 BoardGame >> throw: aCard from: aSpaceship [
-
-	| aCardPlayers |
 	croupier take: aCard fromTheHandOf: aSpaceship.
-	aCardPlayers := CardPlayers of: aCard with: spaceships.
-	(self validateRepeatOf: aCardPlayers) ifFalse: [ 
-		croupier playOnAll: aCardPlayers ]
+	(penalizer validatesTurnFor: aSpaceship)ifTrue:
+	[aCard isThrownOn: self from: aSpaceship toAll: (self spaceships)]ifFalse:[]
 ]
 
 { #category : #cards }
@@ -300,8 +311,7 @@ BoardGame >> throw: aCard from: aSpaceship affectingOnCell: aCell [
 	| aCardPlayers |
 	croupier take: aCard fromTheHandOf: aSpaceship.
 	aCardPlayers := CardPlayers of: aCard with: spaceships.
-	(self validateRepeatOf: aCardPlayers) ifFalse: [ 
-		croupier play: aCard reversing: aCell affecting: aCardPlayers.].
+	aCard isPlayedBy: croupier from: aCardPlayers affecting: aCell.
 
 ]
 
@@ -309,25 +319,21 @@ BoardGame >> throw: aCard from: aSpaceship affectingOnCell: aCell [
 BoardGame >> throw: aCard from: aSpaceship choosing: anotherCard [
 	
 	croupier take: aCard fromTheHandOf: aSpaceship.
-	croupier play: aCard forSelected: anotherCard.
-	anotherCard name = 'reversal' ifTrue: [ self revertReversalEffect: board of: anotherCard].
+	aCard isPlayedBy: croupier from: aSpaceship choosing: anotherCard.
+	"croupier play: aCard on: self from: aSpaceship choosing: anotherCard."
+	"croupier play: aCard forSelected: anotherCard."
+	"anotherCard name = 'reversal' ifTrue: [ self revertReversalEffect: board of: anotherCard]."
 
 ]
 
 { #category : #cards }
 BoardGame >> throw: aCard from: aSpaceship to: anotherSpaceship [
-
 	| aCardPlayers |
 	self validateSpaceshipExists: anotherSpaceship.
-	(self validateSpaceshipTurnFor: aSpaceship)
-		ifTrue: [ 
-			aCardPlayers := CardPlayers
-				                of: aCard
-				                with: (OrderedCollection with: anotherSpaceship).
-			croupier take: aCard fromTheHandOf: aSpaceship.
-			(self validateRepeatOf: aCardPlayers) ifFalse: [ 
-				croupier play: aCardPlayers ] ]
-		ifFalse: [ croupier take: aCard fromTheHandOf: aSpaceship.].
+	croupier take: aCard fromTheHandOf: aSpaceship.
+	(penalizer validatesTurnFor: aSpaceship)ifTrue:
+	[aCard isThrownOn: self from: aSpaceship to: anotherSpaceship.]ifFalse:[]
+
 ]
 
 { #category : #action }
@@ -362,16 +368,6 @@ BoardGame >> validateAbilityToPlayOf: aSpaceship [
 BoardGame >> validateKeepPlaying [
 
 	Error signal: 'There is a winner, you cant keep moving forward'
-]
-
-{ #category : #cards }
-BoardGame >> validateRepeatOf: aCardPlayers [
-
-	aCardPlayers cards name = 'repeat'
-		ifTrue: [ 
-			croupier play: aCardPlayers on: self.
-			^ true ]
-		ifFalse: [ ^ false ]
 ]
 
 { #category : #validation }

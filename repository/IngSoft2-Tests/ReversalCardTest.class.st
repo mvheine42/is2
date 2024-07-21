@@ -667,11 +667,10 @@ ReversalCardTest >> test15WhenASpaceshipThrowsAReversalCardChoosingAnotherSpache
 		              on: aBoard
 		              with: 2
 		              managedBy: aCroupier controlledBy: aPenalizer.
-
 	self
 		should: [ aBoardGame throw: aReversalCard from: 'Vicky' to: 'Vicky' ]
 		raise: Error
-		withMessage: 'To play Reversal Card, please choose a cell number.'
+		withMessage: 'To play Reversal Card, please choose a cell'
 ]
 
 { #category : #asserting }
@@ -703,11 +702,10 @@ ReversalCardTest >> test16WhenASpaceshipThrowsReversalCardChoosingACardNumberThe
 		              on: aBoard
 		              with: 2
 		              managedBy: aCroupier controlledBy: aPenalizer.
-
 	self
-		should: [ aBoardGame throw: aReversalCard from: 'Vicky' choosing: 1 ]
+		should: [ aBoardGame throw: aReversalCard from: 'Vicky' choosing: anOverloadCard]
 		raise: Error
-		withMessage: 'To play Reversal Card, please choose a cell number.'
+		withMessage: 'To play reversal card, please choose a cell'
 ]
 
 { #category : #asserting }
@@ -739,11 +737,10 @@ ReversalCardTest >> test17WhenASpaceshipThrowsReversalCardNotChoosingACellNumber
 		              on: aBoard
 		              with: 2
 		              managedBy: aCroupier controlledBy: aPenalizer.
-	
 	self
 		should: [ aBoardGame throw: aReversalCard from: 'Vicky'. ]
 		raise: Error
-		withMessage: 'To play Reversal Card, choose a cell number'
+		withMessage: 'To play Reversal Card, choose a cell'
 
 ]
 

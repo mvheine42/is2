@@ -25,6 +25,36 @@ OverloadCard >> implementOn: aBoardGame [
 	^ -2
 ]
 
+{ #category : #testing }
+OverloadCard >> isCancelledBecauseOf: aCroupier [ 
+	aCroupier cancellationCardAffectingCardOn: self.
+]
+
+{ #category : #play }
+OverloadCard >> isPlayedBy: aCroupier from: aCardPlayers affecting: aCell [ 
+	Error signal: 'To play card choose a player'
+]
+
+{ #category : #play }
+OverloadCard >> isPlayedBy: aCroupier from: aSpaceship choosing: aCard [ 
+	Error signal: 'To play card choose a player'.
+]
+
+{ #category : #play }
+OverloadCard >> isThrownOn: aBoardGame from: aSpaceship to: anotherSpaceship [
+	|aCardPlayers|
+	(aBoardGame validateSpaceshipTurnFor: aSpaceship)ifTrue:[
+	aCardPlayers := CardPlayers
+		                of: self
+		                with: (OrderedCollection with: anotherSpaceship).
+	aBoardGame recordPermanent: aCardPlayers.]ifFalse: [  ].
+]
+
+{ #category : #play }
+OverloadCard >> isThrownOn: aBoardGame from: aSpaceship toAll: spaceships [
+	Error signal: 'To play card choose a player'
+]
+
 { #category : #'instance variables' }
 OverloadCard >> name [
 

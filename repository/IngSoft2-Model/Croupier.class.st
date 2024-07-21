@@ -16,15 +16,24 @@ Croupier class >> handling: aDeckOfCards [
 	^(self new) handling: aDeckOfCards.
 ]
 
-{ #category : #action }
-Croupier >> cancellationCardTo: aCard [
-
+{ #category : #cancellation }
+Croupier >> cancellationCardAffectingCardOn: aCard [ 
 	| aCardPlayers |
 	aCardPlayers := permanentCardsPlayers detect: [ :cardPlayers | 
 		                cardPlayers cards id = aCard id ]ifNone:[Error signal: 'That card does not exist'].
 	
 	permanentCardsPlayers remove: aCardPlayers .
 	lastCardPlayed := CancellationCard new.
+]
+
+{ #category : #cancellation }
+Croupier >> cancellationCardAffectingCell: aCard [ 
+	((aCard acell effect) reverseEffect).
+]
+
+{ #category : #action }
+Croupier >> cancellationCardTo: aCard [
+	aCard isCancelledBecauseOf: self.
 ]
 
 { #category : #action }
@@ -87,14 +96,13 @@ Croupier >> play: aCard forSelected: choosenCard [
 ]
 
 { #category : #play }
-Croupier >> play: aCardPlayers on: aBoardGame [ 
-	aCardPlayers cards playOn: aBoardGame to: aCardPlayers.
+Croupier >> play: aCard from: aString choosing: anotherCard [ 
+	anotherCard isCancelledBecauseOf: self.
 ]
 
 { #category : #play }
-Croupier >> play: aCard reversing: aCell affecting: aCardPlayers [ 
-	aCard playOn: self reversing: aCell affecting: aCardPlayers.
-	
+Croupier >> play: aCardPlayers on: aBoardGame [ 
+	aCardPlayers cards playOn: aBoardGame to: aCardPlayers.
 ]
 
 { #category : #play }
