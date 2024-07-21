@@ -61,23 +61,6 @@ SpeedCard >> name [
 	^ 'speed'
 ]
 
-{ #category : #play }
-SpeedCard >> playOn: aCroupier reversing: aCell affecting: aCardPlayers [
-	Error signal: 'To play card, choose a player'.
-]
-
-{ #category : #action }
-SpeedCard >> playOn: aCroupier to: aCardPlayers [
-
-	aCroupier recordPermanent: aCardPlayers
-]
-
-{ #category : #validation }
-SpeedCard >> playOn: aCroupier toAll: aCardPlayers [
-
-	Error signal: 'To play card, choose a player'
-]
-
 { #category : #action }
 SpeedCard >> playOn: aBoardGame toSelected: aSpaceshipCard [ 
 	

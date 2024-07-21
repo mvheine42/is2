@@ -61,23 +61,6 @@ OverloadCard >> name [
 	^'overload'.
 ]
 
-{ #category : #play }
-OverloadCard >> playOn: aCroupier reversing: aCell affecting: aCardPlayers [
-	Error signal: 'To play card, choose a player'.
-]
-
-{ #category : #action }
-OverloadCard >> playOn: aCroupier to: aCardPlayers [
-
-	aCroupier recordPermanent: aCardPlayers
-]
-
-{ #category : #action }
-OverloadCard >> playOn: aCroupier toAll: aCardPlayers [
-
-	Error signal: 'To play card, choose a player'
-]
-
 { #category : #action }
 OverloadCard >> playOn: aBoardGame toSelected: aSpaceshipCard [ 
 	

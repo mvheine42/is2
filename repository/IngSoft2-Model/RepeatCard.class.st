@@ -41,12 +41,6 @@ RepeatCard >> name [
 ]
 
 { #category : #action }
-RepeatCard >> playOn: aBoardGame to: aCardPlayers [
-
-	aBoardGame repeatCardTo: (aCardPlayers spaceships at: 1)
-]
-
-{ #category : #action }
 RepeatCard >> playOn: aCroupier toSelected: aSpeedCard [ 
 	Error signal: 'To play card, choose a player'.
 ]

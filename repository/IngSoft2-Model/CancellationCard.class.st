@@ -48,16 +48,6 @@ CancellationCard >> name [
 ]
 
 { #category : #action }
-CancellationCard >> playOn: aCroupier to: aCardPlayers [ 
-	Error signal: 'You have to choose a card.'.
-]
-
-{ #category : #action }
-CancellationCard >> playOn: aCroupier toAll: aCardPlayers [ 
-	Error signal: 'You have to choose a card.'.
-]
-
-{ #category : #action }
 CancellationCard >> playOn: aCroupier toSelected: card [ 
 	
 	aCroupier cancellationCardTo: card
