@@ -17,28 +17,27 @@ CancellationCard >> id: number [
 	cardId:= number.
 ]
 
-{ #category : #'instance variable' }
-CancellationCard >> name [
-	^'cancellation'.
+{ #category : #cancellation }
+CancellationCard >> isCancelledBy: aCroupier [ 
+	Error signal: 'To play card choose permanent card'.
 ]
 
 { #category : #play }
-CancellationCard >> playOn: aCroupier reversing: aCell affecting: aCardPlayers [
-	Error signal: 'You have to choose a card'.
+CancellationCard >> isPlayedOn: aBoardGame from: aSpaceship affecting: aCell [ 
+	Error signal: 'To play card choose a card'.
 ]
 
-{ #category : #action }
-CancellationCard >> playOn: aCroupier to: aCardPlayers [ 
-	Error signal: 'You have to choose a card.'.
+{ #category : #play }
+CancellationCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [ 
+	aBoardGame cancellationCardTo: aCard.
 ]
 
-{ #category : #action }
-CancellationCard >> playOn: aCroupier toAll: aCardPlayers [ 
-	Error signal: 'You have to choose a card.'.
+{ #category : #play }
+CancellationCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [ 
+	Error signal: 'You have to choose a card.'
 ]
 
-{ #category : #action }
-CancellationCard >> playOn: aCroupier toSelected: card [ 
-	
-	aCroupier cancellationCardTo: card
+{ #category : #play }
+CancellationCard >> isPlayedOn: aBoardGame from: aSpaceship toAll: spaceships [
+	Error signal: 'To play card choose a card'
 ]

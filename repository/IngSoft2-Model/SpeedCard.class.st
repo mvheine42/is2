@@ -25,31 +25,32 @@ SpeedCard >> implementOn: aBoardGame [
 	^ 1
 ]
 
-{ #category : #'instance variable' }
-SpeedCard >> name [
-
-	^ 'speed'
+{ #category : #cancellation }
+SpeedCard >> isCancelledBy: aCroupier [ 
+	aCroupier cancellationCardAffectingCardOn: self .
 ]
 
 { #category : #play }
-SpeedCard >> playOn: aCroupier reversing: aCell affecting: aCardPlayers [
-	Error signal: 'To play card, choose a player'.
+SpeedCard >> isPlayedOn: aBoardGame from: aSpaceship affecting: aCell [ 
+	Error signal: 'To play card choose a player'.
 ]
 
-{ #category : #action }
-SpeedCard >> playOn: aCroupier to: aCardPlayers [
-
-	aCroupier recordPermanent: aCardPlayers
+{ #category : #play }
+SpeedCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [ 
+	Error signal: 'To play card choose a player'
 ]
 
-{ #category : #validation }
-SpeedCard >> playOn: aCroupier toAll: aCardPlayers [
-
-	Error signal: 'To play card, choose a player'
+{ #category : #play }
+SpeedCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
+	|aCardPlayers|
+	(aBoardGame validateSpaceshipTurnFor: aSpaceship)ifTrue:[
+	aCardPlayers := CardPlayers
+		                of: self
+		                with: (OrderedCollection with: anotherSpaceship).
+	aBoardGame recordPermanent: aCardPlayers.]ifFalse: [  ].
 ]
 
-{ #category : #action }
-SpeedCard >> playOn: aBoardGame toSelected: aSpaceshipCard [ 
-	
-	Error signal: 'To play card, choose a player'.
+{ #category : #play }
+SpeedCard >> isPlayedOn: aBoardGame from: aSpaceship toAll: spaceships [
+	Error signal: 'To play card choose a player'.
 ]

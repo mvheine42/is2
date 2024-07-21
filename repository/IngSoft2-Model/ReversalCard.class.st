@@ -28,29 +28,34 @@ ReversalCard >> implementOn: aCroupier [
 	^0.
 ]
 
-{ #category : #'instance variable' }
-ReversalCard >> name [
-	^'reversal'.
+{ #category : #cancellation }
+ReversalCard >> isCancelledBy: aCroupier [ 
+	aCroupier cancellationCardAffectingCell: self.
 ]
 
 { #category : #play }
-ReversalCard >> playOn: aCroupier reversing: aCell affecting: aCardPlayers [ 
-	aCell effect reverseEffect.
-	cell := aCell.
-	aCroupier recordPermanent: aCardPlayers.
+ReversalCard >> isPlayedOn: aBoardGame from: aSpaceship affecting: aCell [ 
+	|aCardPlayers|
+	(aBoardGame validateSpaceshipTurnFor: aSpaceship)ifTrue:[
+		aCell effect reverseEffect.
+		cell := aCell.
+		aCardPlayers := CardPlayers
+		                of: self
+		                with: (aBoardGame spaceships).
+		aBoardGame recordPermanent: aCardPlayers]ifFalse: [  ].
 ]
 
-{ #category : #action }
-ReversalCard >> playOn: aCroupier to: aCardPlayers [ 
-	Error signal: 'To play Reversal Card, please choose a cell number.'
+{ #category : #play }
+ReversalCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [ 
+	Error signal: 'To play reversal card, please choose a cell'
 ]
 
-{ #category : #action }
-ReversalCard >> playOn: aCroupier toAll: aCardPlayers [ 
-	Error signal: 'To play Reversal Card, choose a cell number'.
+{ #category : #play }
+ReversalCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
+	Error signal: 'To play Reversal Card, please choose a cell'
 ]
 
-{ #category : #action }
-ReversalCard >> playOn: aCroupier toSelected: anInteger [ 
-	Error signal: 'To play Reversal Card, please choose a cell number.'.
+{ #category : #play }
+ReversalCard >> isPlayedOn: aBoardGame from: aSpaceship toAll: spaceships [
+	Error signal: 'To play Reversal Card, choose a cell'
 ]

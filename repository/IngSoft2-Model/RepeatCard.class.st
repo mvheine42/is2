@@ -19,19 +19,17 @@ RepeatCard >> id: number [
 	cardId := number
 ]
 
-{ #category : #'instance variable' }
-RepeatCard >> name [
-
-	^ 'repeat'
+{ #category : #play }
+RepeatCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [ 
+	Error signal: 'To play card choose a player'
 ]
 
-{ #category : #action }
-RepeatCard >> playOn: aBoardGame to: aCardPlayers [
-
-	aBoardGame repeatCardTo: (aCardPlayers spaceships at: 1)
+{ #category : #play }
+RepeatCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
+	aBoardGame repeatCardTo: anotherSpaceship.
 ]
 
-{ #category : #action }
-RepeatCard >> playOn: aCroupier toSelected: aSpeedCard [ 
-	Error signal: 'To play card, choose a player'.
+{ #category : #play }
+RepeatCard >> isPlayedOn: aBoardGame from: aSpaceship toAll: spaceships [
+	aBoardGame repeatCardTo: (spaceships at: 1)
 ]

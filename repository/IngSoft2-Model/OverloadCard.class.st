@@ -25,31 +25,32 @@ OverloadCard >> implementOn: aBoardGame [
 	^ -2
 ]
 
-{ #category : #'instance variables' }
-OverloadCard >> name [
-
-	^'overload'.
+{ #category : #testing }
+OverloadCard >> isCancelledBy: aCroupier [ 
+	aCroupier cancellationCardAffectingCardOn: self.
 ]
 
 { #category : #play }
-OverloadCard >> playOn: aCroupier reversing: aCell affecting: aCardPlayers [
-	Error signal: 'To play card, choose a player'.
+OverloadCard >> isPlayedOn: aBoardGame from: aSpaceship affecting: aCell [ 
+	Error signal: 'To play card choose a player'.
 ]
 
-{ #category : #action }
-OverloadCard >> playOn: aCroupier to: aCardPlayers [
-
-	aCroupier recordPermanent: aCardPlayers
+{ #category : #play }
+OverloadCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [ 
+	Error signal: 'To play card choose a player'
 ]
 
-{ #category : #action }
-OverloadCard >> playOn: aCroupier toAll: aCardPlayers [
-
-	Error signal: 'To play card, choose a player'
+{ #category : #play }
+OverloadCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
+	|aCardPlayers|
+	(aBoardGame validateSpaceshipTurnFor: aSpaceship)ifTrue:[
+	aCardPlayers := CardPlayers
+		                of: self
+		                with: (OrderedCollection with: anotherSpaceship).
+	aBoardGame recordPermanent: aCardPlayers.]ifFalse: [  ].
 ]
 
-{ #category : #action }
-OverloadCard >> playOn: aBoardGame toSelected: aSpaceshipCard [ 
-	
-	Error signal: 'To play card, choose a player' .
+{ #category : #play }
+OverloadCard >> isPlayedOn: aBoardGame from: aSpaceship toAll: spaceships [
+	Error signal: 'To play card choose a player'
 ]

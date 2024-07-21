@@ -19,36 +19,22 @@ RedoCard >> id: number [
 	cardId := number
 ]
 
-{ #category : #'instance variables' }
-RedoCard >> name [
-
-	^ 'redo'
+{ #category : #play }
+RedoCard >> isPlayedOn: aBoardGame from: aCardPlayers affecting: aCell [ 
+	(aBoardGame lastCardPlayed) isPlayedOn: aBoardGame from: aCardPlayers affecting: aCell .
 ]
 
-{ #category : #action }
-RedoCard >> playOn: aCroupier to: aCardPlayers [
-
-	| lastCardPlayers |
-	lastCardPlayers := CardPlayers
-		                   of: aCroupier lastCardPlayed
-		                   with: aCardPlayers spaceships.
-
-	aCroupier play: lastCardPlayers
+{ #category : #play }
+RedoCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [ 
+	(aBoardGame lastCardPlayed) isPlayedOn: aBoardGame from: aSpaceship choosing: aCard
 ]
 
-{ #category : #action }
-RedoCard >> playOn: aCroupier toAll: aCardPlayers [
-
-	| lastCardPlayers |
-	lastCardPlayers := CardPlayers
-		                   of: aCroupier lastCardPlayed
-		                   with: aCardPlayers spaceships.
-
-	aCroupier playOnAll: lastCardPlayers
+{ #category : #play }
+RedoCard >> isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship [
+	(aBoardGame lastCardPlayed) isPlayedOn: aBoardGame from: aSpaceship to: anotherSpaceship.
 ]
 
-{ #category : #action }
-RedoCard >> playOn: aCroupier toSelected: card [
-
-	aCroupier play: aCroupier lastCardPlayed forSelected: card
+{ #category : #play }
+RedoCard >> isPlayedOn: aBoardGame from: aSpaceship toAll: spaceships [ 
+	(aBoardGame lastCardPlayed) isPlayedOn: aBoardGame from: aSpaceship toAll: spaceships.
 ]
