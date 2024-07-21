@@ -85,11 +85,6 @@ Croupier >> permanentCardsOf: aSpaceship [
 	^ anAmount
 ]
 
-{ #category : #play }
-Croupier >> play: aCard from: aString choosing: anotherCard [ 
-	anotherCard isCancelledBecauseOf: self.
-]
-
 { #category : #action }
 Croupier >> playerCardOf: aSpaceship [
 

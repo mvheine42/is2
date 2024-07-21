@@ -20,11 +20,6 @@ RepeatCard >> id: number [
 ]
 
 { #category : #play }
-RepeatCard >> isPlayedBy: aCroupier from: aSpaceship choosing: aCard [ 
-	Error signal: 'To play card choose a player'
-]
-
-{ #category : #play }
 RepeatCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [ 
 	Error signal: 'To play card choose a player'
 ]

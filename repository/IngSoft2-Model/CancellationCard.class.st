@@ -22,11 +22,6 @@ CancellationCard >> isCancelledBecauseOf: aCroupier [
 	Error signal: 'To play card choose permanent card'.
 ]
 
-{ #category : #cancellation }
-CancellationCard >> isPlayedBy: aCroupier from: aSpaceship choosing: anotherCard [
-	aCroupier play: self from: aSpaceship choosing: anotherCard.
-]
-
 { #category : #play }
 CancellationCard >> isPlayedOn: aBoardGame from: aSpaceship choosing: aCard [ 
 	aBoardGame cancellationCardTo: aCard.
